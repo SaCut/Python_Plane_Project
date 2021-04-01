@@ -7,3 +7,6 @@ __pycache__/
 
 # for VS Code
 .vscode/
+
+# for server information
+server_info.cfg

@@ -1,6 +1,8 @@
 # for Pycharm
 venv/
 /.idea/
+__pycache__
+.pycache
 
 # for VS Code
 .vscode/

@@ -1,9 +1,14 @@
 # for Pycharm
 venv/
 /.idea/
+
+# python-specific
 */__pycache__/
 __pycache__/
 .pycache/
 
 # for VS Code
 .vscode/
+
+# for the project
+notes/

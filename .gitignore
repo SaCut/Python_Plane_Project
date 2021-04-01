@@ -1,6 +1,7 @@
 # for Pycharm
 venv/
 /.idea/
+*/__pycache__/
 __pycache__/
 .pycache/
 

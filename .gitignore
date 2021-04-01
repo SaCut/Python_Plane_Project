@@ -1,3 +1,6 @@
 # for Pycharm
 venv/
 /.idea/
+
+# for VS Code
+.vscode/

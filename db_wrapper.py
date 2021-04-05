@@ -16,5 +16,9 @@ class DbWrapper:
 
         self.cursor = self.connection.cursor()
 
+    def load_from_db(self, table, **kwargs):
+        pass
 
-db = DbWrapper()
+    def save_to_db(self, table, **kwargs):
+        pass
+

@@ -3,6 +3,7 @@ import pyodbc
 
 class DbWrapper:
 
+    # Opens a file called server_info.cfg and pulls connection info from there
     def __init__(self):
         file_lines = open("server_info.cfg", "r").readlines()
         self.ip = file_lines[0].strip("\n")
@@ -16,9 +17,10 @@ class DbWrapper:
 
         self.cursor = self.connection.cursor()
 
+    # Will be used to pull information from the database
     def load_from_db(self, table, **kwargs):
         pass
 
+    # Will be used to store information in the database
     def save_to_db(self, table, **kwargs):
         pass
-

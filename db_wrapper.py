@@ -43,10 +43,6 @@ class DbWrapper:
         passenger.make_from_db(None, "Isobel", "Fitt-Conway", "aasdasdas", "98989922")
         list_passengers.append(passenger)
 
-        passenger = Passenger()
-        passenger.make_from_db(1, "AAAA", "Fitt-Conway", "aasdasdas", "98989922")
-        list_passengers.append(passenger)
-
         for passenger in list_passengers:
 
             if passenger.pid is None:

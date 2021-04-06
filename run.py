@@ -45,7 +45,7 @@ if __name__ == "__main__":
             user_in = menus.num_input("Please select an option between 0 and 4:\n", 4)
             menus.handle_main_menu(user_in)
         elif flag == "passengers":  # passengers menu
-            menus.passengers_menu()
+            menus.passengers_menu(db, dict_passengers)
             flag = "main"
         elif flag == "flights":  # flights menu
             menus.flights_menu()

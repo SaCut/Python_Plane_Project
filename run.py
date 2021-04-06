@@ -3,12 +3,12 @@ from db_wrapper import DbWrapper
 
 
 # These lists will eventually contain Passenger and Flight objects
-list_passengers = []
+dict_passengers = {}
 list_flights = []
 
 # Lists passengers that have not been assigned to a flight
 def list_passengers_with_no_flight():
-    if len(list_passengers) == 0:
+    if len(dict_passengers) == 0:
         print("There are no passengers to list")
     else:
         pass

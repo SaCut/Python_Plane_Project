@@ -6,8 +6,12 @@ from db_wrapper import DbWrapper
 list_passengers = []
 list_flights = []
 
+# Creates and returns a new passenger object
+def create_passenger():
+    pass
+
 # Lists passengers that have not been assigned to a flight
-def list_passengers_with_no_flight():
+def list_some_passengers(flight): # temporary name
     if len(list_passengers) == 0:
         print("There are no passengers to list")
     else:

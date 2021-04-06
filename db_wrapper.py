@@ -25,8 +25,8 @@ class DbWrapper:
         run.list_flights = []
         self.cursor.execute("SELECT * FROM passengers")
         temp_passenger_list = self.cursor.fetchall()
-        for p in temp_passenger_list:
-            pass
+        for passenger in temp_passenger_list:
+            passenger
 
     # Will be used to store information in the database
     def save_to_db(self, table, passenger_list, flights_list, primary_key=0):

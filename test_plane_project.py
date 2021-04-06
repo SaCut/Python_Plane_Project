@@ -3,6 +3,7 @@ from people.people import Person
 from people.passenger import Passenger
 from aircraft.aircraft import Aircraft
 from flight_trip import FlightTrip
+from db_wrapper import DbWrapper
 import unittest
 
 
@@ -11,9 +12,9 @@ class SimpleTest(unittest.TestCase):
     # functions from person
     person = Person()  # create an object of our class
 
-    # def test_add(self):  # naming convention - using 'test' in the name of your function
-    #     # will let the interpreter know that this needs to be tested
-    #     self.assertEqual(bool(self.test_person.first_name), (not None))
+    def test_add(self):  # naming convention - using 'test' in the name of your function
+        # will let the interpreter know that this needs to be tested
+        self.assertEqual(bool(self.person.first_name), (not None))
 
     def test_get_name(self):
         pass
@@ -51,10 +52,20 @@ class SimpleTest(unittest.TestCase):
     def test_add_passenger(self):
         pass
 
-
     def test_assign_plane(self):
         pass
 
-    def test_name(self): # naming convention - using 'test' in the name of your function
-                        # will let the interpreter know that this needs to be tested
-        self.assertEqual(bool(self.test_person.first_name), (not None))
+    # functions from db_wrapper
+    wrapper = DbWrapper()
+
+    def test_load_all_passengers(self):
+        pass
+
+    def test_save_all_passengers(self):
+        pass
+
+    def test_load_all_flights(self):
+        pass
+
+    def test_save_all_flights(self):
+        pass

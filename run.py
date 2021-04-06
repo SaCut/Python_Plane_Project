@@ -1,3 +1,5 @@
+from db_wrapper import DbWrapper
+
 # These lists will eventually contain Passenger and Flight objects
 list_passengers = []
 list_flights = []
@@ -50,6 +52,7 @@ if __name__ == "__main__":
     flag = "main"
 
     while running:
+        db = DbWrapper()
         if flag == "main":  # If main then we are on the main menu
             print_main_menu()
             user_in = num_input("Please select an option between 0 and 4:\n", 4)

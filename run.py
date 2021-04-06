@@ -12,14 +12,6 @@ def print_main_menu():
           f"0. exit\n")
     pass
 
-# Prints the aircraft menu
-def print_aircraft_menu():
-    pass
-
-# Prints the staff menu
-def print_staff_menu():
-    pass
-
 # Displays and handles the passengers menu
 def passengers_menu():
     while True:
@@ -50,6 +42,14 @@ def flights_menu():
         elif user_in == 2:
             print("Choose a flight to edit!")
 
+# Prints the aircraft menu (currently nothing to add)
+def aircraft_menu():
+    print("In the aircraft menu")
+
+# Prints the staff menu (currently nothing to add)
+def staff_menu():
+    print("In the staff menu")
+
 # This handles the input for the main menu
 # it sets the flag variable for use in deciding what menu to display
 def handle_main_menu(num):
@@ -68,14 +68,14 @@ def handle_main_menu(num):
         flag = "staff"
 
 
-# Lists that have not been assigned to a flight
+# Lists passengers that have not been assigned to a flight
 def list_passengers_with_no_flight():
     if len(list_passengers) == 0:
         print("There are no passengers to list")
     else:
         pass
 
-# Lists the flights with important information
+# Lists all flights with important information
 def list_flight_info():
     pass
 

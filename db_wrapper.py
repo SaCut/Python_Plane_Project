@@ -34,11 +34,14 @@ class DbWrapper:
             print(f"{passenger.pid} {passenger.first_name} {passenger.last_name}")
 
     # Will be used to store information in the database
-    def save_to_db(self, passenger_list):
+    def save_to_db(self):
+        passenger = Passenger()
+        passenger.make_from_db(None, "Isobel", "Fitt-Conway", "aasdasdas", "98989922")
+        run.list_passengers.append(passenger)
 
-        for passenger in passenger_list:
+        for passenger in run.list_passengers:
             check_psg = self.cursor.execute(f"SELECT * FROM passengers WHERE passport_number = "
-                                            + f"{passenger.passport_no}")
+                                            + f"{passenger.passport_number}")
             check_psg = check_psg.fetchall()
 
             if len(check_psg) > 0:
@@ -51,8 +54,13 @@ class DbWrapper:
                 passport_number = passenger.passport_number
 
                 self.cursor.execute(
-                    f"INSERT INTO passengers ('first_name', 'last_name', 'tax_number', 'passport_number') "
-                    + f"VALUES ({first_name}, {last_name}, {tax_number}, {passport_number});")
+                    f"INSERT INTO passengers "
+                    + f"VALUES ('{first_name}', '{last_name}', '{tax_number}', '{passport_number}');")
+
+                self.connection.commit()
+
+        self.cursor.execute("SELECT * FROM passengers")
+        print(self.cursor.fetchall())
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@
 # class Passenger (inherits from Person)
 from people.people import Person
 
+
 class Passenger(Person):
 	def __init__(self):
 		super().__init__()
@@ -16,3 +17,11 @@ class Passenger(Person):
 	def make_from_db(self, pid, first_name, last_name, tax_no, passport_no):
 		super().init_person_data(pid, first_name, last_name, tax_no)
 		self.passport_number = passport_no
+
+	def make_manual(self, first_name, last_name, tax_no, passport_no, db_wrapper, passenger_dict):
+		# make a place holder passenger
+
+		self.make_from_db(None, first_name, last_name, tax_no, passport_no)
+
+		# generate the real one
+		db_wrapper.save_single_passenger(self, passenger_dict)

@@ -4,7 +4,7 @@ from db_wrapper import DbWrapper
 
 # These lists will eventually contain Passenger and Flight objects
 dict_passengers = {}
-list_flights = []
+dict_flights = {}
 
 # Creates and returns a new passenger object
 def create_passenger():
@@ -12,7 +12,8 @@ def create_passenger():
 
 # Lists passengers that have not been assigned to a flight
 def list_some_passengers(flight): # temporary name
-    if len(list_passengers) == 0:
+    if len(dict_passengers) == 0:
+        pass
 
 def list_passengers_with_no_flight():
     if len(dict_passengers) == 0:
@@ -27,24 +28,23 @@ def list_flight_info():
 # This is the running code
 if __name__ == "__main__":
     # This decides if the while loop is running
-    global running
-    running = True
 
     # This decides which menu to display
-    global flag
     flag = "main"
 
-    # # Essential db loading code
-    # db_wrapper = DbWrapper()
-    # list_passengers = db_wrapper.load_all_passengers()
-    while running:
+    # Essential db loading code
+    db_wrapper = DbWrapper()
+    dict_passengers = db_wrapper.load_all_passengers()
+    dict_flights = db_wrapper.load_all_flights(dict_passengers)
+
+    while flag != "exit":
         db = DbWrapper()
         if flag == "main":  # If main then we are on the main menu
             menus.print_main_menu()
             user_in = menus.num_input("Please select an option between 0 and 4:\n", 4)
-            menus.handle_main_menu(user_in)
+            flag = menus.handle_main_menu(user_in)
         elif flag == "passengers":  # passengers menu
-            menus.passengers_menu()
+            menus.passengers_menu(db, dict_passengers)
             flag = "main"
         elif flag == "flights":  # flights menu
             menus.flights_menu()

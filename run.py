@@ -55,3 +55,5 @@ if __name__ == "__main__":
         elif flag == "staff":  # staff menu
             menus.staff_menu()
             flag = "main"
+
+    db_wrapper.connection.close()

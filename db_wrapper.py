@@ -78,6 +78,13 @@ class DbWrapper:
 
         return passenger_dict
 
+    def delete_single_passenger(self, passenger, passenger_dict):
+        passenger_dict.pop(passenger.pid)
+        self.cursor.execute(f"DELETE FROM flight_orders WHERE passenger_id = {passenger.pid}")
+        self.connection.commit()
+        self.cursor.execute(f"DELETE FROM passengers WHERE passenger_id = {passenger.pid}")
+        self.connection.commit()
+
     def get_flight_passengers(self, flight_id, passenger_list):
         self.cursor.execute(f"SELECT passenger_id FROM flight_order WHERE flight_id = {flight_id}")
         flight_passengers = []
@@ -133,6 +140,14 @@ class DbWrapper:
         flight_dict[fid] = flt
 
         return flight_dict
+
+    def delete_single_flight(self, flight_trip, dict_flights):
+        dict_flights.pop(flight_trip.flight_id)
+        self.cursor.execute(f"DELETE FROM flight_orders WHERE flight_id = {flight_trip.flight_id}")
+        self.connection.commit()
+        self.cursor.execute(f"DELETE FROM flight_trip_table WHERE flight_id = {flight_trip.flight_id}")
+        self.connection.commit()
+
 
     def add_single_flight_order(self, passenger, flight):
         self.cursor.execute(f"INSERT INTO flight_orders VALUES ({passenger.pid}, {flight.flight_id})")

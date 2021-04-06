@@ -4,7 +4,7 @@ from db_wrapper import DbWrapper
 
 # These lists will eventually contain Passenger and Flight objects
 dict_passengers = {}
-list_flights = []
+dict_flights = {}
 
 # Creates and returns a new passenger object
 def create_passenger():
@@ -12,7 +12,8 @@ def create_passenger():
 
 # Lists passengers that have not been assigned to a flight
 def list_some_passengers(flight): # temporary name
-    if len(list_passengers) == 0:
+    if len(dict_passengers) == 0:
+        pass
 
 def list_passengers_with_no_flight():
     if len(dict_passengers) == 0:

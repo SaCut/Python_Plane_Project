@@ -45,7 +45,13 @@ class DbWrapper:
         # list_passengers.append(passenger)
 
         for passenger in dict_passengers.values():
-            self.save_single_passenger(passenger, dict_passengers)
+
+            # If passenger doesnt exist
+            self.cursor.execute(f"SELECT * FROM passengers where passenger_id = {passenger.pid}")
+            if len(self.cursor.fetchall()) is None:
+                self.save_single_passenger(passenger, dict_passengers)
+
+        return dict_passengers
 
         # self.cursor.execute("SELECT * FROM passengers")
         # print(self.cursor.fetchall())
@@ -70,6 +76,8 @@ class DbWrapper:
         psg.make_from_db(pid, first_name, last_name, tax_number, passport_number)
         passenger_dict[pid] = psg
 
+        return passenger_dict
+
     def get_flight_passengers(self, flight_id, passenger_list):
         self.cursor.execute(f"SELECT passenger_id FROM flight_order WHERE flight_id = {flight_id}")
         flight_passengers = []
@@ -90,21 +98,32 @@ class DbWrapper:
         print(list_flights[0].passenger_list[0])
         return list_flights
 
-    def save_all_flights(self, flight_list):
-        for flight in flight_list:
+    def save_all_flights(self, flight_dict):
 
-            # If flight doesnt exist at the moment
-            if flight.flight_id is None:
-                first_name = passenger.first_name
-                last_name = passenger.last_name
-                tax_number = passenger.tax_number
-                passport_number = passenger.passport_number
+        for flight in flight_dict.values():
+            self.save_single_flight(flight, flight_dict)
 
-                self.cursor.execute(
-                    f"INSERT INTO flight_trip_table "
-                    + f"VALUES ('{first_name}', '{last_name}', '{tax_number}', '{passport_number}');")
+    def save_single_flight(self, flight, flight_dict):
+        ticket_price = flight.ticket_price
+        aircraft_id = flight.aircraft_id
+        destination = flight.destination
+        duration = flight.duration
+        origin = flight.origin
 
-                self.connection.commit()
+        self.cursor.execute(
+            f"INSERT INTO flight_trip_table "
+            + f"VALUES ('{ticket_price}', '{aircraft_id}', '{destination}', '{duration}, {origin}');")
+
+        self.connection.commit()
+
+        # Update the dictionary so that this is always correct
+        self.cursor.execute("SELECT MAX(flight_id) FROM flight_trip_table")
+        fid = self.cursor.fetchone()[0]
+        flt = FlightTrip()
+        flt.make_from_db(fid, ticket_price, aircraft_id, destination, duration, origin)
+        flight_dict[fid] = flt
+
+        return flight_dict
 
 
 if __name__ == "__main__":

@@ -7,7 +7,6 @@ import hashlib, os
 class Login:
     def __init__(self):
         self.database = DbWrapper()
-        # self.database.cursor = self.database.cursor
 
     def attempt_login(self):
         attempts = 5
@@ -60,10 +59,6 @@ class Login:
             uname = user["username"]
             salt = str(user["salt"]).replace("'", "''")
             pwd = str(user["password"]).replace("'", "''")
-
-            print(uname)
-            print(salt)
-            print(pwd)
 
             self.database.cursor.execute(f"INSERT INTO login_credentials (username, salt, password) VALUES ('{uname}', '{salt}', '{pwd}');")
 

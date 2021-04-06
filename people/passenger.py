@@ -12,7 +12,7 @@ class Passenger(Person):
 
 	# helpful for debugging
 	def __str__(self):
-		return f"{self.pid} {self.first_name} {self.last_name} {self.tax_number} {self.passport_number}"
+		return f"{self.pid}. {self.first_name} {self.last_name} {self.tax_number} {self.passport_number}"
 
 	def make_from_db(self, pid, first_name, last_name, tax_no, passport_no):
 		super().init_person_data(pid, first_name, last_name, tax_no)

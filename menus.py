@@ -41,7 +41,9 @@ def passengers_menu(db_wrapper, passenger_dict):
             p = Passenger()
             p.make_manual("example", "passenger", "tax", "passport", db_wrapper, passenger_dict)
         elif user_in == 2:
-            print("List the passengers not in a flight so assisstant can add them")
+            print("List the passengers not in a flight so assistant can add them")
+            for p in passenger_dict.values():
+                print(p)
 
 # Displays and handles the flights menu
 def flights_menu():

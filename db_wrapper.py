@@ -1,4 +1,8 @@
 import pyodbc
+from people import passenger
+from people import staff
+from aircraft import aircraft
+import flight_trip
 
 
 class DbWrapper:
@@ -18,9 +22,9 @@ class DbWrapper:
         self.cursor = self.connection.cursor()
 
     # Will be used to pull information from the database
-    def load_from_db(self, table, **kwargs):
+    def load_from_db(self, passenger_list, flights_list):
         pass
 
     # Will be used to store information in the database
-    def save_to_db(self, table, **kwargs):
+    def save_to_db(self, passenger_list, flights_list):
         pass

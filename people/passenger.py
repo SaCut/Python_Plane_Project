@@ -12,15 +12,14 @@ class Passenger(Person):
 
     # helpful for debugging
     def __str__(self):
-        return f"{self.pid}. {self.first_name} {self.last_name} {self.tax_number} {self.passport_number}"
+      return f"{self.pid}. {self.first_name} {self.last_name} {self.tax_number} {self.passport_number}"
 
     def make_from_db(self, pid, first_name, last_name, tax_no, passport_no):
-        super().init_person_data(pid, first_name, last_name, tax_no)
-        self.passport_number = passport_no
+      super().init_person_data(pid, first_name, last_name, tax_no)
+      self.passport_number = passport_no
 
     def make_manual(self, first_name, last_name, tax_no, passport_no, db_wrapper, passenger_dict):
         # make a place holder passenger
-
         self.make_from_db(None, first_name, last_name, tax_no, passport_no)
 
         # generate the real one

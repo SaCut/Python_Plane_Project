@@ -20,7 +20,7 @@ class DbWrapper:
         self.cursor = self.connection.cursor()
 
     # Will be used to pull information from the database
-    def load_fresh_from_db(self):
+    def load_all_passengers(self):
         run.list_passengers = []
         run.list_flights = []
         self.cursor.execute("SELECT * FROM passengers")
@@ -34,7 +34,7 @@ class DbWrapper:
             print(f"{passenger.pid} {passenger.first_name} {passenger.last_name}")
 
     # Will be used to store information in the database
-    def save_to_db(self):
+    def save_all_passengers(self):
         passenger = Passenger()
         passenger.make_from_db(None, "Isobel", "Fitt-Conway", "aasdasdas", "98989922")
         run.list_passengers.append(passenger)
@@ -61,6 +61,12 @@ class DbWrapper:
 
         self.cursor.execute("SELECT * FROM passengers")
         print(self.cursor.fetchall())
+
+    def load_all_flights(self):
+        pass
+
+    def save_all_flights(self):
+        pass
 
 
 if __name__ == "__main__":

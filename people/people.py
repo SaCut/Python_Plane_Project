@@ -1,6 +1,6 @@
 # Parent class Person (inherits from DbWrapper)
 
-class Person(): # (DbWrapper)
+class Person:  # (DbWrapper)
 	def __init__(self, exists=False):
 		self.database = exists
 		self.first_name = self.get_name()

@@ -64,10 +64,14 @@ def aircraft_menu():
 def staff_menu():
     print("In the staff menu")
 
-
 # Universal input manager, takes an input message and an end index and returns the number entered as an int
 def num_input(input_msg, end_index):
     user_input = input(input_msg)
     while not user_input.isdigit() or int(user_input) > end_index:
         user_input = input(f"Please enter a number between 0 and {end_index}:\n")
     return int(user_input)
+
+# Allows the user to enter text information, following the given prompt
+def text_input(input_msg, check_msg):
+    # user_input = input(input_msg)
+    pass

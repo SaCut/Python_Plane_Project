@@ -7,7 +7,7 @@ class DbWrapper:
     # Opens a file called server_info.cfg and pulls connection info from there
     def __init__(self):
         try:
-            file_lines = open("server_anfo.cfg", "r").readlines()
+            file_lines = open("server_info.cfg", "r").readlines()
             self.ip = file_lines[0].strip("\n")
             self.uname = file_lines[1].strip("\n")
             self.password = file_lines[2].strip("\n")
@@ -43,12 +43,13 @@ class DbWrapper:
         passenger.make_from_db(None, "Isobel", "Fitt-Conway", "aasdasdas", "98989922")
         list_passengers.append(passenger)
 
+        passenger = Passenger()
+        passenger.make_from_db(1, "AAAA", "Fitt-Conway", "aasdasdas", "98989922")
+        list_passengers.append(passenger)
+
         for passenger in list_passengers:
 
             if passenger.pid is None:
-                continue
-
-            else:
                 first_name = passenger.first_name
                 last_name = passenger.last_name
                 tax_number = passenger.tax_number

@@ -1,6 +1,6 @@
 # class Passenger (inherits from Person)
 
-from people import Person
+from People import Person
 
 class Passenger(Person):
 	def __init__(self):
@@ -8,4 +8,4 @@ class Passenger(Person):
 		self.passport_number = self.get_passport()
 
 	def get_passport(self):
-		return init("Please insert the passport number: ")
+		return input("Please insert the passport number: ")

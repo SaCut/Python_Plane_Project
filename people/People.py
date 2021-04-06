@@ -11,9 +11,9 @@ class Person(): # (DbWrapper)
 		if not self.database:
 			return input("\nPlease insert the first name: ")
 
-	def get_surname(self, surname):
+	def get_surname(self):
 		if not self.database:
 			return input("\nPlease insert the last name: ")
 
-	def get_number(self, number):
+	def get_number(self):
 		return input("\nPlease insert the last tax number: ")

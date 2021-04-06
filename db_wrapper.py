@@ -86,22 +86,23 @@ class DbWrapper:
 
         return flight_passengers
 
-    def load_all_flights(self, passenger_list):
-        list_flights = []
+    def load_all_flights(self, passenger_dict):
+        flight_dict = {}
         self.cursor.execute("SELECT * FROM flight_trip_table")
         temp_flight_list = self.cursor.fetchall()
         for val in temp_flight_list:
             flight = FlightTrip()
-            flight.make_from_db(val[0], val[1], val[2], val[3], val[4], val[5], self.get_flight_passengers(val[0], passenger_list))
-            list_flights.append(flight)
+            flight.make_from_db(val[0], val[1], val[2], val[3], val[4], val[5], self.get_flight_passengers(val[0], passenger_dict))
+            flight_dict[val[0]] = flight
 
-        print(list_flights[0].passenger_list[0])
-        return list_flights
+        return flight_dict
 
     def save_all_flights(self, flight_dict):
 
         for flight in flight_dict.values():
             self.save_single_flight(flight, flight_dict)
+
+        return flight_dict
 
     def save_single_flight(self, flight, flight_dict):
         ticket_price = flight.ticket_price

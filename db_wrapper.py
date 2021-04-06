@@ -29,7 +29,7 @@ class DbWrapper:
             pass
 
     # Will be used to store information in the database
-    def save_to_db(self, primary_key=0, table, passenger_list, flights_list):
+    def save_to_db(self, table, passenger_list, flights_list, primary_key=0):
         for passenger in passenger_list:
             if passenger.first_name is not None:
                 first_name = passenger.first_name

@@ -34,7 +34,7 @@ class DbWrapper:
             print(f"{passenger.pid} {passenger.first_name} {passenger.last_name}")
 
     # Will be used to store information in the database
-    def save_to_db(self, table, passenger_list, flights_list, passenger_id=0):
+    def save_to_db(self, passenger_list):
 
         for passenger in passenger_list:
             check_psg = self.cursor.execute(f"SELECT * FROM passengers WHERE passport_number = "
@@ -45,16 +45,14 @@ class DbWrapper:
                 continue
 
             else:
-                if new_passenger:
-                    first_name = passenger.first_name
-                    last_name = passenger.last_name
-                    tax_number = passenger.tax_number
-                    passport_number = passenger.passport_number
+                first_name = passenger.first_name
+                last_name = passenger.last_name
+                tax_number = passenger.tax_number
+                passport_number = passenger.passport_number
 
-
-                    self.cursor.execute(
-                        f"INSERT INTO {table} ('passenger_id', 'first_name', 'last_name', 'tax_number', 'passport_number') "
-                        + f"VALUES ({passenger_id}, {first_name}, {last_name}, {tax_number}, {passport_number});")
+                self.cursor.execute(
+                    f"INSERT INTO passengers ('first_name', 'last_name', 'tax_number', 'passport_number') "
+                    + f"VALUES ({first_name}, {last_name}, {tax_number}, {passport_number});")
 
 
 if __name__ == "__main__":

@@ -100,7 +100,9 @@ class DbWrapper:
     def save_all_flights(self, flight_dict):
 
         for flight in flight_dict.values():
-            self.save_single_flight(flight, flight_dict)
+            self.cursor.execute(f"SELECT * FROM flight_trip_table where flight_id = {flight.flight_id}")
+            if len(self.cursor.fetchall()) is None:
+                self.save_single_flight(flight, flight_dict)
 
         return flight_dict
 
@@ -117,6 +119,12 @@ class DbWrapper:
 
         self.connection.commit()
 
+        self.cursor.execute(f"DELETE FROM flight_orders WHERE flight_id = {flight.flight_id}")
+        self.connection.commit()
+
+        for passenger in flight.passenger_list:
+            self.add_single_flight_order(passenger, flight)
+
         # Update the dictionary so that this is always correct
         self.cursor.execute("SELECT MAX(flight_id) FROM flight_trip_table")
         fid = self.cursor.fetchone()[0]
@@ -125,6 +133,10 @@ class DbWrapper:
         flight_dict[fid] = flt
 
         return flight_dict
+
+    def add_single_flight_order(self, passenger, flight):
+        self.cursor.execute(f"INSERT INTO flight_orders VALUES ({passenger.pid}, {flight.flight_id})")
+        self.connection.commit()
 
 
 if __name__ == "__main__":

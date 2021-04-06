@@ -4,7 +4,7 @@ from login import Login
 
 login_object = Login()
 if login_object.attempt_login():
-    pass
+    continue
 else:
     raise Exception("Failed login attempt. Contact your neighbourhood coder.")
 

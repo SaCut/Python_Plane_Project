@@ -1,6 +1,12 @@
 import menus
 from db_wrapper import DbWrapper
+from login import Login
 
+login_object = Login()
+if login_object.attempt_login():
+    pass
+else:
+    raise Exception("Failed login attempt. Contact your neighbourhood coder.")
 
 # These lists will eventually contain Passenger and Flight objects
 dict_passengers = {}

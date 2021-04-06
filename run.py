@@ -28,22 +28,21 @@ def list_flight_info():
 # This is the running code
 if __name__ == "__main__":
     # This decides if the while loop is running
-    global running
-    running = True
 
     # This decides which menu to display
-    global flag
     flag = "main"
 
-    # # Essential db loading code
-    # db_wrapper = DbWrapper()
-    # list_passengers = db_wrapper.load_all_passengers()
-    while running:
+    # Essential db loading code
+    db_wrapper = DbWrapper()
+    dict_passengers = db_wrapper.load_all_passengers()
+    dict_flights = db_wrapper.load_all_flights(dict_passengers)
+
+    while flag != "exit":
         db = DbWrapper()
         if flag == "main":  # If main then we are on the main menu
             menus.print_main_menu()
             user_in = menus.num_input("Please select an option between 0 and 4:\n", 4)
-            menus.handle_main_menu(user_in)
+            flag = menus.handle_main_menu(user_in)
         elif flag == "passengers":  # passengers menu
             menus.passengers_menu(db, dict_passengers)
             flag = "main"

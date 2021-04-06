@@ -5,8 +5,6 @@
 from people.people import Person
 
 
-
-
 class Passenger(Person):
 	def __init__(self):
 		super().__init__()

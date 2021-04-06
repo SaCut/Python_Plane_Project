@@ -27,6 +27,9 @@ if __name__ == "__main__":
     global flag
     flag = "main"
 
+    # # Essential db loading code
+    # db_wrapper = DbWrapper()
+    # list_passengers = db_wrapper.load_all_passengers()
     while running:
         db = DbWrapper()
         if flag == "main":  # If main then we are on the main menu

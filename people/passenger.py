@@ -1,6 +1,6 @@
 # class Passenger (inherits from Person)
 
-from People import Person
+from people import Person
 
 class Passenger(Person):
 	def __init__(self):

@@ -1,8 +1,7 @@
 # Parent class Person (inherits from DbWrapper)
 
 class Person:  # (DbWrapper)
-	def __init__(self, exists=False):
-		# self.database = exists
+	def __init__(self):
 		self.pid = None
 		self.first_name = None
 		self.last_name = None

@@ -1,10 +1,10 @@
 class FlightTrip:
-    def __init__(self, destination, origin):
+    def __init__(self):
         self.ticket_price = None
         self.aircraft = None
         self.duration = None
-        self.destination = destination
-        self.origin = origin
+        self.destination = None
+        self.origin = None
         self.passenger_list = None
 
     def flight_attendees_list_report(self):

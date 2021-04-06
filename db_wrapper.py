@@ -11,10 +11,10 @@ class DbWrapper:
             self.ip = file_lines[0].strip("\n")
             self.uname = file_lines[1].strip("\n")
             self.password = file_lines[2].strip("\n")
-            self.DbName = file_lines[3].strip("\n")
+            self.db_name = file_lines[3].strip("\n")
 
             self.connection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};' +
-                                             f'SERVER={self.ip};DATABASE={self.DbName};'
+                                             f'SERVER={self.ip};DATABASE={self.db_name};'
                                              f'UID={self.uname};PWD={self.password}')
 
             self.cursor = self.connection.cursor()

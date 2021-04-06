@@ -1,6 +1,6 @@
 import pyodbc
 from people.passenger import Passenger
-
+from flight_trip import FlightTrip
 
 class DbWrapper:
 
@@ -24,18 +24,18 @@ class DbWrapper:
 
     # Will be used to pull information from the database
     def load_all_passengers(self):
-        list_passengers = []
+        dict_passengers = {}
         self.cursor.execute("SELECT * FROM passengers")
         temp_passenger_list = self.cursor.fetchall()
         for val in temp_passenger_list:
             passenger = Passenger()
             passenger.make_from_db(val[0], val[1], val[2], val[3], val[4])
-            list_passengers.append(passenger)
+            dict_passengers[val[0]] = passenger
 
         # for passenger in list_passengers:
         #     print(f"{passenger.pid} {passenger.first_name} {passenger.last_name}")
 
-        return list_passengers
+        return dict_passengers
 
     # Will be used to store information in the database
     def save_all_passengers(self, list_passengers):
@@ -60,8 +60,27 @@ class DbWrapper:
         # self.cursor.execute("SELECT * FROM passengers")
         # print(self.cursor.fetchall())
 
-    def load_all_flights(self):
-        pass
+    def get_flight_passengers(self, flight_id, passenger_list):
+        self.cursor.execute(f"SELECT passenger_id FROM flight_order WHERE flight_id = {flight_id}")
+        flight_passengers = []
+        for entry in self.cursor.fetchall():
+            flight_passengers.append(passenger_list[entry])
+
+        print(flight_passengers)
+        return flight_passengers
+
+
+
+    def load_all_flights(self, passenger_list):
+        list_flights = []
+        self.cursor.execute("SELECT * FROM flight_trip_table")
+        temp_flight_list = self.cursor.fetchall()
+        for val in temp_flight_list:
+            flight = FlightTrip()
+            flight.make_from_db(val[0], val[1], val[2], val[3], val[4], val[5], self.get_flight_passengers(val[0], passenger_list))
+            list_flights.append(flight)
+
+        return flight
 
     def save_all_flights(self):
         pass

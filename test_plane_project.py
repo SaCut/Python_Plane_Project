@@ -44,7 +44,7 @@ class SimpleTest(unittest.TestCase):
         pass
 
     # functions from flight_trip
-    flight_trip = FlightTrip("LGW", "AMS")
+    flight_trip = FlightTrip()
 
     def test_flight_attendees_list_report(self):
         pass
@@ -56,7 +56,7 @@ class SimpleTest(unittest.TestCase):
         pass
 
     # functions from db_wrapper
-    wrapper = DbWrapper()
+    # wrapper = DbWrapper()  # need server_info.cfg
 
     def test_load_all_passengers(self):
         pass

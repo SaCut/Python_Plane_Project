@@ -58,8 +58,12 @@ class Login:
             user["password"] = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), user["salt"], 1000) # hashing the password
 
             uname = user["username"]
-            salt = user["salt"]
-            pwd = user["password"]
+            salt = str(user["salt"]).replace("'", "''")
+            pwd = str(user["password"]).replace("'", "''")
+
+            print(uname)
+            print(salt)
+            print(pwd)
 
             self.database.cursor.execute(f"INSERT INTO login_credentials (username, salt, password) VALUES ('{uname}', '{salt}', '{pwd}');")
 

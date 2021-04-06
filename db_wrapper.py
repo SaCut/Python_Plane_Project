@@ -29,8 +29,17 @@ class DbWrapper:
             pass
 
     # Will be used to store information in the database
-    def save_to_db(self, passenger_list, flights_list):
-        pass
+    def save_to_db(self, primary_key=0, table, passenger_list, flights_list):
+        for passenger in passenger_list:
+            if passenger.first_name is not None:
+                first_name = passenger.first_name
+                last_name = passenger.last_name
+                tax_number = passenger.tax_number
+                passport_number = passenger.passport_number
+
+                self.cursor.execute(
+                    f"INSERT INTO {table} ('first_name', 'last_name', 'tax_number', 'passport_number')"
+                    + f"VALUES ({first_name}, {last_name}, {tax_number}, {passport_number});")
 
 
 if __name__ == "__main__":

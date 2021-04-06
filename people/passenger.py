@@ -5,7 +5,7 @@ from people import Person
 class Passenger(Person):
 	def __init__(self):
 		super().__init__()
-		self.passport_number = self.get_passport()
+		self.passport_number = None
 
-	def get_passport(self):
-		return input("Please insert the passport number: ")
+	def init_passport(self):
+		self.passport_number = input("Please insert the passport number: ")

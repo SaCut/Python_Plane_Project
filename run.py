@@ -12,6 +12,43 @@ def print_main_menu():
           f"0. exit\n")
     pass
 
+# Prints the aircraft menu
+def print_aircraft_menu():
+    pass
+
+# Prints the staff menu
+def print_staff_menu():
+    pass
+
+# Displays and handles the passengers menu
+def passengers_menu():
+    while True:
+        print(f"\n1. Create Flight (Trip)\n"
+          f"2. Edit Flight (Trip)\n"
+          f"0. exit\n")
+
+        user_in = num_input("Please enter a number between 0 and 2\n", 2)
+        if user_in == 0:
+            break
+        elif user_in == 1:
+            print("Creating passenger")
+        elif user_in == 2:
+            print("List the passengers not in a flight so assisstant can add them")
+
+# Displays and handles the flights menu
+def flights_menu():
+    while True:
+        print(f"\n1. Create Flight (Trip)\n"
+          f"2. Edit Flight (Trip)\n"
+          f"0. exit\n")
+
+        user_in = num_input("Please enter a number between 0 and 2\n", 2)
+        if user_in == 0:
+            break
+        elif user_in == 1:
+            print("Creating a new Flight")
+        elif user_in == 2:
+            print("Choose a flight to edit!")
 
 # This handles the input for the main menu
 # it sets the flag variable for use in deciding what menu to display
@@ -30,6 +67,17 @@ def handle_main_menu(num):
     elif num == 4:
         flag = "staff"
 
+
+# Lists that have not been assigned to a flight
+def list_passengers_with_no_flight():
+    if len(list_passengers) == 0:
+        print("There are no passengers to list")
+    else:
+        pass
+
+# Lists the flights with important information
+def list_flight_info():
+    pass
 
 # Universal input manager, takes an input message and an end index and returns the number entered as an int
 def num_input(input_msg, end_index):
@@ -55,10 +103,10 @@ if __name__ == "__main__":
             user_in = num_input("Please select an option between 0 and 4:\n", 4)
             handle_main_menu(user_in)
         elif flag == "passengers":  # passengers menu
-            print("p")
+            passengers_menu()
             flag = "main"
         elif flag == "flights":  # flights menu
-            print("f")
+            flights_menu()
             flag = "main"
         elif flag == "aircraft":  # aircraft menu
             print("a")

@@ -29,7 +29,7 @@ class Login:
                 run_pswd = input("Insert password: ")
 
                 # hashing the user-given password
-                check_pswd = hashlib.pbkdf2_hmac('sha256', run_pswd.encode('utf-8'), user["salt"], 1000)
+                check_pswd = hashlib.pbkdf2_hmac('sha256', run_pswd.encode('utf-8'), get_salt, 1000)
 
                 if check_pswd == get_pswd:
                     return True # returns True when the password is correct

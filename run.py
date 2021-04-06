@@ -12,7 +12,10 @@ def print_main_menu():
 
 
 def handle_main_menu(num):
-    pass
+    global running
+    if num == 0:
+        running = False
+        return
 
 
 # Universal input manager
@@ -24,7 +27,10 @@ def num_input(input_msg, end_index):
 
 
 if __name__ == "__main__":
-    while True:
+    global running
+    running = True
+
+    while running:
         print_main_menu()
         user_in = num_input("Please select an option between 0 and 4:\n", 4)
         handle_main_menu(user_in)

@@ -1,6 +1,8 @@
+# As an airport Assistant, I want to be able to create a passenger with a name and Passport number, so that I can add them to a flight
+# User should be able to create a new object of the Passenger class
+# A passenger should only be created if all information is provided
 # class Passenger (inherits from Person)
-from people.people import Person
-
+from people import Person
 
 class Passenger(Person):
 	def __init__(self):

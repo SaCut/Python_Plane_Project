@@ -23,7 +23,7 @@ class DbWrapper:
             exit(1)
 
     # Will be used to pull information from the database
-    def load_all_passengers(self, list_passengers):
+    def load_all_passengers(self):
         list_passengers = []
         self.cursor.execute("SELECT * FROM passengers")
         temp_passenger_list = self.cursor.fetchall()
@@ -35,6 +35,8 @@ class DbWrapper:
         for passenger in list_passengers:
             print(f"{passenger.pid} {passenger.first_name} {passenger.last_name}")
 
+        return list_passengers
+
     # Will be used to store information in the database
     def save_all_passengers(self, list_passengers):
         passenger = Passenger()
@@ -42,11 +44,8 @@ class DbWrapper:
         list_passengers.append(passenger)
 
         for passenger in list_passengers:
-            check_psg = self.cursor.execute(f"SELECT * FROM passengers WHERE passport_number = "
-                                            + f"{passenger.passport_number}")
-            check_psg = check_psg.fetchall()
 
-            if len(check_psg) > 0:
+            if passenger.pid is None:
                 continue
 
             else:

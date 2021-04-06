@@ -1,19 +1,16 @@
 # Parent class Person (inherits from DbWrapper)
 
-class Person(): # (DbWrapper)
+class Person:  # (DbWrapper)
 	def __init__(self, exists=False):
-		self.database = exists
-		self.first_name = self.get_name()
-		self.last_name = self.get_surname()
-		self.tax_number = self.get_number()
+		# self.database = exists
+		self.pid = None
+		self.first_name = None
+		self.last_name = None
+		self.tax_number = None
 
-	def get_name(self):
-		if not self.database:
-			return input("\nPlease insert the first name: ")
+	def init_person_data(self, pid, first_name, last_name, tax_no):
+		self.pid = pid
+		self.first_name = first_name
+		self.last_name = last_name
+		self.tax_number = tax_no
 
-	def get_surname(self):
-		if not self.database:
-			return input("\nPlease insert the last name: ")
-
-	def get_number(self):
-		return input("\nPlease insert the last tax number: ")

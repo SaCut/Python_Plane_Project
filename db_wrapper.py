@@ -1,5 +1,5 @@
 import pyodbc
-import people.passenger
+from people.passenger import Passenger
 import run
 
 
@@ -25,8 +25,13 @@ class DbWrapper:
         run.list_flights = []
         self.cursor.execute("SELECT * FROM passengers")
         temp_passenger_list = self.cursor.fetchall()
-        for passenger in temp_passenger_list:
-            passenger
+        for val in temp_passenger_list:
+            passenger = Passenger()
+            passenger.make_from_db(val[0], val[1], val[2], val[3], val[4])
+            run.list_passengers.append(passenger)
+
+        for passenger in run.list_passengers:
+            print(f"{passenger.pid} {passenger.first_name} {passenger.last_name}")
 
     # Will be used to store information in the database
     def save_to_db(self, table, passenger_list, flights_list, primary_key=0):

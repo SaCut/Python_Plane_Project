@@ -58,8 +58,9 @@ class FlightTrip (AbstractDbObject):
         self.make_from_db(None, ticket_price, aircraft_id, destination, duration, origin, [])
 
         # generate the real one
+        # should this be self.__save_and_regenerate_with_id(db_wrapper) ?
         return db_wrapper.__save_and_regenerate_with_id(db_wrapper)  # error from run.py: 'DbWrapper' object has no attribute '_FlightTrip__save_and_regenerate_with_id'
-        
+
     def flight_attendees_list_report(self):
         pass
 

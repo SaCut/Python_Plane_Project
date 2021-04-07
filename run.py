@@ -32,7 +32,8 @@ def flight_attendees_list_report(flight):
     flight_info = dict_flights[flight]
     flight_passengers = flight_info.passenger_list
     for passenger in flight_passengers:
-        print(passenger)
+        print(f"{passenger.first_name} {passenger.last_name}\n"
+              f"{passenger.passport_number}\n\n")
 
 
 # This is the running code

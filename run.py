@@ -3,8 +3,10 @@ from db_wrapper import DbWrapper
 
 
 # These lists will eventually contain Passenger and Flight objects
-dict_passengers = {}
-dict_flights = {}
+dict_passengers = {}  # Key passenger_id: val Passenger()
+dict_flights = {}  # Key flight_id: val FlightTrip()
+aircraft = {}  # Key aircraft_id: val Plane() or Helicopter()
+staff = {}  # Key staff_id: Staff()
 
 # Creates and returns a new passenger object
 def create_passenger():
@@ -47,7 +49,7 @@ if __name__ == "__main__":
             menus.passengers_menu(db, dict_passengers)
             flag = "main"
         elif flag == "flights":  # flights menu
-            menus.flights_menu()
+            menus.flights_menu(db, dict_flights)
             flag = "main"
         elif flag == "aircraft":  # aircraft menu
             menus.aircraft_menu()
@@ -55,3 +57,5 @@ if __name__ == "__main__":
         elif flag == "staff":  # staff menu
             menus.staff_menu()
             flag = "main"
+
+    db_wrapper.connection.close()

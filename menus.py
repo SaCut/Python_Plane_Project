@@ -1,5 +1,6 @@
 # To keep run.py cleaner - holds all the code related to displaying and handling menus
 from people.passenger import Passenger
+from flight_trip import FlightTrip
 
 # This prints the main menu
 def print_main_menu():
@@ -29,8 +30,8 @@ def handle_main_menu(num):
 def passengers_menu(db_wrapper, passenger_dict):
     while True:
         print(f"\n1. Create passenger\n"
-          f"2. List passengers\n"
-          f"0. exit\n")
+              f"2. List passengers\n"
+              f"0. exit\n")
 
         user_in = num_input("Please enter a number between 0 and 2\n", 2)
         if user_in == 0:
@@ -38,18 +39,20 @@ def passengers_menu(db_wrapper, passenger_dict):
         elif user_in == 1:
             print("Creating passenger")
 
-            p = Passenger()
-            p.make_manual("example", "passenger", "tax", "passport", db_wrapper, passenger_dict)
+            # make a passenger and add it to the dict
+            p = Passenger().make_manual("ex", "passenger", "tax", "passport", db_wrapper)
+            passenger_dict[p.oid] = p
+
         elif user_in == 2:
             print("List the passengers not in a flight so assistant can add them")
             for p in passenger_dict.values():
                 print(p)
 
 # Displays and handles the flights menu
-def flights_menu():
+def flights_menu(db_wrapper, flight_dict):
     while True:
         print(f"\n1. Create Flight (Trip)\n"
-          f"2. Edit Flight (Trip)\n"
+          f"2. List Flights (Trip)\n"
           f"0. exit\n")
 
         user_in = num_input("Please enter a number between 0 and 2\n", 2)
@@ -57,8 +60,14 @@ def flights_menu():
             break
         elif user_in == 1:
             print("Creating a new Flight")
+
+            # make a flight_trip and add it to the dict
+            t = FlightTrip().make_manual(210, "aircraft_id", "destination", 24, "origin", db_wrapper, flight_dict)
+            flight_dict[t.oid] = t
         elif user_in == 2:
             print("Choose a flight to edit!")
+            for f in flight_dict:
+                print(f)
 
 # Prints the aircraft menu (currently nothing to add)
 def aircraft_menu():

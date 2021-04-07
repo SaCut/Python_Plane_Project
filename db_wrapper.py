@@ -1,6 +1,7 @@
 import pyodbc
 from people.passenger import Passenger
 from flight_trip import FlightTrip
+from aircraft.aircraft import Aircraft
 
 
 class DbWrapper:
@@ -23,61 +24,23 @@ class DbWrapper:
             print(f"server_info.config not found!")
             exit(1)
 
+    """ Passenger Functions"""
     # Will be used to pull information from the database
     def load_all_passengers(self):
         dict_passengers = {}
         self.cursor.execute("SELECT * FROM passengers")
         temp_passenger_list = self.cursor.fetchall()
+
+    # Generate passenger objects
         for val in temp_passenger_list:
             passenger = Passenger()
             passenger.make_from_db(val[0], val[1], val[2], val[3], val[4])
             dict_passengers[val[0]] = passenger
 
-        # for passenger in list_passengers:
-        #     print(f"{passenger.pid} {passenger.first_name} {passenger.last_name}")
-
         return dict_passengers
 
-    # Will be used to store information in the database
-    def save_all_passengers(self, dict_passengers):
-        # passenger = Passenger()
-        # passenger.make_from_db(None, "Isobel", "Fitt-Conway", "aasdasdas", "98989922")
-        # list_passengers.append(passenger)
-
-        for passenger in dict_passengers.values():
-
-            # If passenger doesnt exist
-            self.cursor.execute(f"SELECT * FROM passengers where passenger_id = {passenger.pid}")
-            if len(self.cursor.fetchall()) is None:
-                self.save_single_passenger(passenger, dict_passengers)
-
-        return dict_passengers
-
-        # self.cursor.execute("SELECT * FROM passengers")
-        # print(self.cursor.fetchall())
-
-    # allows the creation of a single passenger in the db and adds it to the dict
-    def save_single_passenger(self, passenger, passenger_dict):
-        first_name = passenger.first_name
-        last_name = passenger.last_name
-        tax_number = passenger.tax_number
-        passport_number = passenger.passport_number
-
-        self.cursor.execute(
-            f"INSERT INTO passengers "
-            + f"VALUES ('{first_name}', '{last_name}', '{tax_number}', '{passport_number}');")
-
-        self.connection.commit()
-
-        # Update the dictionary so that this is always correct
-        self.cursor.execute("SELECT MAX(passenger_id) FROM passengers")
-        pid = self.cursor.fetchone()[0]
-        psg = Passenger()
-        psg.make_from_db(pid, first_name, last_name, tax_number, passport_number)
-        passenger_dict[pid] = psg
-
-        return passenger_dict
-
+    """ Flight functions """
+    # Get all passengers on a flight using flight_order
     def get_flight_passengers(self, flight_id, passenger_list):
         self.cursor.execute(f"SELECT passenger_id FROM flight_order WHERE flight_id = {flight_id}")
         flight_passengers = []
@@ -86,9 +49,10 @@ class DbWrapper:
 
         return flight_passengers
 
+    # Load all FlightTrip objects
     def load_all_flights(self, passenger_dict):
         flight_dict = {}
-        self.cursor.execute("SELECT * FROM flight_trip_table")
+        self.cursor.execute("SELECT * FROM flight_trip")
         temp_flight_list = self.cursor.fetchall()
         for val in temp_flight_list:
             flight = FlightTrip()
@@ -97,43 +61,7 @@ class DbWrapper:
 
         return flight_dict
 
-    def save_all_flights(self, flight_dict):
-
-        for flight in flight_dict.values():
-            self.cursor.execute(f"SELECT * FROM flight_trip_table where flight_id = {flight.flight_id}")
-            if len(self.cursor.fetchall()) is None:
-                self.save_single_flight(flight, flight_dict)
-
-        return flight_dict
-
-    def save_single_flight(self, flight, flight_dict):
-        ticket_price = flight.ticket_price
-        aircraft_id = flight.aircraft_id
-        destination = flight.destination
-        duration = flight.duration
-        origin = flight.origin
-
-        self.cursor.execute(
-            f"INSERT INTO flight_trip_table "
-            + f"VALUES ('{ticket_price}', '{aircraft_id}', '{destination}', '{duration}, {origin}');")
-
-        self.connection.commit()
-
-        self.cursor.execute(f"DELETE FROM flight_orders WHERE flight_id = {flight.flight_id}")
-        self.connection.commit()
-
-        for passenger in flight.passenger_list:
-            self.add_single_flight_order(passenger, flight)
-
-        # Update the dictionary so that this is always correct
-        self.cursor.execute("SELECT MAX(flight_id) FROM flight_trip_table")
-        fid = self.cursor.fetchone()[0]
-        flt = FlightTrip()
-        flt.make_from_db(fid, ticket_price, aircraft_id, destination, duration, origin)
-        flight_dict[fid] = flt
-
-        return flight_dict
-
+    # add a single flight order to the flight_order table
     def add_single_flight_order(self, passenger, flight):
         self.cursor.execute(f"INSERT INTO flight_orders VALUES ({passenger.pid}, {flight.flight_id})")
         self.connection.commit()

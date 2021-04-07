@@ -1,9 +1,17 @@
-class Aircraft:
+from abstract_db_record import AbstractDbObject
 
-    def __init__(self, aircraft_id, flight_capacity):
-        self.aircraft_id = aircraft_id
+
+class Aircraft(AbstractDbObject):
+
+    def __init__(self, oid):
+        super().__init__(oid, "aircraft")
         self.flight = False  # temp value
-        self.flight_capacity = flight_capacity
+        self.flight_capacity = None
+
+    def init_aircraft_data(self, aircraft_id, flight, capacity):
+        self.oid = aircraft_id
+        self.flight = flight
+        self.flight_capacity = capacity
 
     def fly(self):
         pass

@@ -12,23 +12,27 @@ login_layout = [
                 ]
 
 flights_layout = [
-        [sg.Text("test test test")],
-        [sg.Submit("Flights"), sg.Submit("Passengers"), sg.Submit()]
+        [sg.Button("Flights"), sg.Button("Passengers")],
         ]
 
-passengers_layout = []
+passengers_layout = [[sg.Text("test test test")]]
+
+layout = [[sg.Column(login_layout, key="-LOG-"),
+        sg.Column(flights_layout, key="-FLY-", visible=False),
+        sg.Column(passengers_layout, key="-PASS-", visible=False)]]
 
 # create the window
-# main_window = sg.Window('Airport Terminal', main_layout, grab_anywhere=False, return_keyboard_events=True, finalize=True)
-main_window = sg.Window("Login", login_layout)
-
+main_window = sg.Window("Login", layout)
 
 # window running loop
 while True:
     event, values = main_window.read()
 
     sg.popup_non_blocking(event, values)
-    if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+    if event == sg.WIN_CLOSED or event == "Cancel": # if user closes window or clicks cancel
         break
+    if event == "Log In":
+        window["-LOG-"].update(visible=False)
+        window["-FLY-"].update(visible=True)
 
 main_window.close()

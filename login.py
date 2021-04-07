@@ -71,4 +71,4 @@ class Login:
 
 if __name__=='__main__':
     log_object = Login()
-    print(log_object.new_account())
+    log_object.new_account()

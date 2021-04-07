@@ -112,8 +112,12 @@ class DbWrapper:
 
         # Generate passenger objects
         for val in temp_passenger_list:
-            staff = Staff().make_from_db(val[0], val[1], val[2], val[3])
-            dict_staff[val[0]] = staff
+            if val[4] == "Null":
+                staff = Staff().make_from_db(val[0], val[1], val[2], val[3], None)
+                dict_staff[val[0]] = staff
+            else:
+                staff = Staff().make_from_db(val[0], val[1], val[2], val[3], val[4])
+                dict_staff[val[0]] = staff
 
         return dict_staff
 

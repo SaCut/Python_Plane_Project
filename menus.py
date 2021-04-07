@@ -85,6 +85,21 @@ def num_input(input_msg, end_index):
     return int(user_input)
 
 # Allows the user to enter text information, following the given prompt
-def text_input(input_msg, check_msg):
+def text_input(input_msg):
+    exit_prompt = " Or enter 'done' to exit. "
     # user_input = input(input_msg)
-    pass
+    while True:
+        user_input = input(input_msg + exit_prompt)  # ask the user for input
+
+        # exit it without returning here
+        if user_input == "done":
+            break
+
+        confirm_msg = "You entered: '" + user_input + "'. Do you wish to continue? (y/n) "
+
+        user_conf = input(confirm_msg)
+
+        if user_conf.lower() == "y" or user_conf.lower == "yes":
+            return user_input
+        elif user_conf.lower ==  "done":
+            break  # exit it without returning here

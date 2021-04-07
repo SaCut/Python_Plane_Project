@@ -9,14 +9,16 @@ class Passenger(Person):
     def __init__(self):
         super().__init__(None, "passengers")
         self.passport_number = None
+        self.tickets = []
 
     # helpful for debugging
     def __str__(self):
         return f"{self.oid}. {self.first_name} {self.last_name} {self.age} {self.passport_number}"
 
     def make_from_db(self, oid, first_name, last_name, age, passport_no, db_wrapper):
-        super().init_person_data(oid, first_name, last_name, age, db_wrapper)
+        super().init_person_data(oid, first_name, last_name, age)
         self.passport_number = passport_no
+        self.tickets = db_wrapper.load_passenger_tickets(self.oid)
         return self
 
     def __save_and_regenerate_with_id(self, db_wrapper):

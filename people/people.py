@@ -12,4 +12,3 @@ class Person:  # (DbWrapper)
 		self.first_name = first_name
 		self.last_name = last_name
 		self.tax_number = tax_no
-

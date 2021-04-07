@@ -1,6 +1,7 @@
 import pyodbc
 from people.passenger import Passenger
 from flight_trip import FlightTrip
+from aircraft.aircraft import Aircraft
 
 
 class DbWrapper:
@@ -23,6 +24,8 @@ class DbWrapper:
             print(f"server_info.config not found!")
             exit(1)
 
+
+    """ Passenger Functions"""
     # Will be used to pull information from the database
     def load_all_passengers(self):
         dict_passengers = {}
@@ -79,6 +82,8 @@ class DbWrapper:
         self.cursor.execute(f"DELETE FROM passengers WHERE passenger_id = {passenger.pid}")
         self.connection.commit()
 
+
+    """ Flight functions """
     # Get all passengers on a flight using flight_order
     def get_flight_passengers(self, flight_id, passenger_list):
         self.cursor.execute(f"SELECT passenger_id FROM flight_order WHERE flight_id = {flight_id}")
@@ -150,6 +155,38 @@ class DbWrapper:
     def add_single_flight_order(self, passenger, flight):
         self.cursor.execute(f"INSERT INTO flight_orders VALUES ({passenger.pid}, {flight.flight_id})")
         self.connection.commit()
+
+
+    """ Aircraft functions """
+    def load_all_aircraft(self):
+        aircraft_dict = {}
+        self.cursor.execute("SELECT * FROM aircraft")
+        temp_aircraft_list = self.cursor.fetchall()
+        for val in temp_aircraft_list:
+            aircraft = Aircraft()
+            flight.make_from_db(val[0], val[1], val[2], val[3], val[4], val[5], self.get_flight_passengers(val[0], passenger_dict))
+            flight_dict[val[0]] = flight
+
+        return flight_dict
+
+        pass
+
+    def save_all_aircraft(self, aircraft_dict):
+        pass
+
+    def save_single_aircraft(self, aircraft, aircraft_dict):
+        pass
+
+
+    """ Staff functions """
+    def load_all_staff(self, staff_dict):
+        pass
+
+    def save_all_staff(self, staff_dict):
+        pass
+
+    def save_single_staff(self, staff, staff_dict):
+        pass
 
 
 if __name__ == "__main__":

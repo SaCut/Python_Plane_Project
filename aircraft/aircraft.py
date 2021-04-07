@@ -1,9 +1,14 @@
 class Aircraft:
 
-    def __init__(self, aircraft_id, flight_capacity):
-        self.aircraft_id = aircraft_id
+    def __init__(self):
+        self.aircraft_id = None
         self.flight = False  # temp value
-        self.flight_capacity = flight_capacity
+        self.flight_capacity = None
+
+    def init_aircraft_data(self, aircraft_id, flight, capacity):
+        self.aircraft_id = aircraft_id
+        self.flight = flight
+        self.flight_capacity = capacity
 
     def fly(self):
         pass

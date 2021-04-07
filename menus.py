@@ -29,8 +29,8 @@ def handle_main_menu(num):
 def passengers_menu(db_wrapper, passenger_dict):
     while True:
         print(f"\n1. Create passenger\n"
-          f"2. List passengers\n"
-          f"0. exit\n")
+              f"2. List passengers\n"
+              f"0. exit\n")
 
         user_in = num_input("Please enter a number between 0 and 2\n", 2)
         if user_in == 0:

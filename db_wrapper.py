@@ -1,7 +1,7 @@
 import pyodbc
 from people.passenger import Passenger
 from flight_trip import FlightTrip
-from aircraft.aircraft import Aircraft
+
 
 
 class DbWrapper:
@@ -9,7 +9,7 @@ class DbWrapper:
     # Opens a file called server_info.cfg and pulls connection info from there
     def __init__(self):
         try:
-            file_lines = open("server_info.cfg", "r").readlines()
+            file_lines = open("../server_info.cfg", "r").readlines()
             self.ip = file_lines[0].strip("\n")
             self.uname = file_lines[1].strip("\n")
             self.password = file_lines[2].strip("\n")
@@ -20,7 +20,8 @@ class DbWrapper:
                                              f'UID={self.uname};PWD={self.password}')
 
             self.cursor = self.connection.cursor()
-        except FileNotFoundError:
+        except FileNotFoundError as err:
+            print(err)
             print(f"server_info.config not found!")
             exit(1)
 

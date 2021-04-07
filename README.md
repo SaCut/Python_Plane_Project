@@ -18,7 +18,7 @@
 Manages the connection between the SQL database and Python code. Saving and loading to and from the database is handled here.
 
 ### [flight_trip.py](flight_trip.py)
-An object. Each instance contains information about. 
+An object. Each instance contains information about a flight, hence the name.
 
 ### [menus.py](menus.py)
 Holds all the code used for displaying and handling the menus used in `run.py`. Created solely to keep `run.py` neat.

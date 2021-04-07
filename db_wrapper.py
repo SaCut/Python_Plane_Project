@@ -20,7 +20,8 @@ class DbWrapper:
                                              f'UID={self.uname};PWD={self.password}')
 
             self.cursor = self.connection.cursor()
-        except FileNotFoundError:
+        except FileNotFoundError as err:
+            print(err)
             print(f"server_info.config not found!")
             exit(1)
 
@@ -66,6 +67,18 @@ class DbWrapper:
         self.cursor.execute(f"INSERT INTO flight_orders VALUES ({passenger.pid}, {flight.flight_id})")
         self.connection.commit()
 
+    def load_all_aircraft(self):
+        dict_aircraft = {}
+        self.cursor.execute("SELECT * FROM aircraft")
+        temp_passenger_list = self.cursor.fetchall()
+
+        # Generate passenger objects
+        for val in temp_passenger_list:
+            aircraft = Aircraft()
+            aircraft.make_from_db(val[0], val[1], val[2])
+            dict_aircraft[val[0]] = aircraft
+
+        return dict_aircraft
 
 if __name__ == "__main__":
     db = DbWrapper()

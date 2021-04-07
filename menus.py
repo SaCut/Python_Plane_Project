@@ -78,7 +78,7 @@ def flights_menu(db_wrapper, flight_dict, passenger_dict):
 
         elif user_in == 2:
             print("List of flights!")
-            for f in flight_dict:
+            for f in flight_dict.values():
                 print(f)
 
         elif user_in == 3:
@@ -106,6 +106,7 @@ def aircraft_menu(db_wrapper, aircraft_dict, flight_dict):
                 print(aircraft)
         elif user_in == 3:
             print("Assigning Aircraft to a flight")
+            assign_aircraft(db_wrapper, aircraft_dict, flight_dict)
 
 # Prints the staff menu (currently nothing to add)
 def staff_menu():
@@ -190,11 +191,24 @@ def create_aircraft(db_wrapper, aircraft_dict):
     capacity = int_input("What is this aircrafts capacity?\n")
     
     if aircraft_type == 1:
-        plane = Plane().make_manual(is_flying, capacity, db_wrapper)
+        plane = Plane().make_manual(is_flying, capacity, "plane", db_wrapper)
         aircraft_dict[plane.oid] = plane
     else:
-        heli = Helicopter().make_manual(is_flying, capacity, db_wrapper)
+        heli = Helicopter().make_manual(is_flying, capacity, "heli", db_wrapper)
         aircraft_dict[heli.oid] = heli  
+
+
+def assign_aircraft(db_wrapper, aircraft_dict, flight_dict):
+    flight_id = int_input("Please enter the flight id:\n")
+    while flight_id not in flight_dict.keys():
+        flight_id = int_input("Please enter the flight id:\n")
+
+    aircraft_id = int_input("Please enter the aircraft id:\n")
+    while aircraft_id not in aircraft_dict.keys():
+        aircraft_id = int_input("Please enter the aircraft id:\n")
+
+    flight_dict[flight_id].assign_aircraft(aircraft_dict[aircraft_id], db_wrapper)
+
 
 def sell_ticket(passenger_dict, flight_dict, db_wrapper):
 # test with passenger id = and 

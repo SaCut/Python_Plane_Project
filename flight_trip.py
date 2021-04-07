@@ -72,6 +72,7 @@ class FlightTrip (AbstractDbObject):
         db_wrapper.cursor.execute(f"UPDATE {self.table} "
                                   f"SET aircraft_id = {aircraft.oid} "
                                   f"WHERE {self.table}_id = {self.oid}")
+        self.aircraft_id = aircraft.oid
 
 
     def add_passenger(self):

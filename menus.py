@@ -27,13 +27,14 @@ def handle_main_menu(num):
         return "staff"
 
 # Displays and handles the passengers menu
-def passengers_menu(db_wrapper, passenger_dict):
+def passengers_menu(db_wrapper, passenger_dict, dict_flights):
     while True:
         print(f"\n1. Create passenger\n"
-              f"2. List passengers\n"
+              f"2. List passengers not on any flight\n"
+              f"3. List passengers on a flight\n"
               f"0. exit\n")
 
-        user_in = num_input("Please enter a number between 0 and 2\n", 2)
+        user_in = num_input("Please enter a number between 0 and 3\n", 3)
         if user_in == 0:
             break
         elif user_in == 1:
@@ -47,6 +48,17 @@ def passengers_menu(db_wrapper, passenger_dict):
             print("List the passengers not in a flight so assistant can add them")
             for p in passenger_dict.values():
                 print(p)
+
+        elif user_in == 3:
+            flight_no = int(input("Please enter a flight ID:\n"))
+            try:
+                print(f"Passengers on flight {flight_no}:")
+                flight_passengers = dict_flights[flight_no].passenger_list
+                for passenger in flight_passengers:
+                    print(f"{passenger.first_name} {passenger.last_name} - {passenger.passport_number}\n")
+            except KeyError:
+                print("Flight not found")
+
 
 # Displays and handles the flights menu
 def flights_menu(db_wrapper, flight_dict):

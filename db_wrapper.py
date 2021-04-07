@@ -1,7 +1,7 @@
 import pyodbc
 from people.passenger import Passenger
 from flight_trip import FlightTrip
-
+from aircraft.aircraft import Aircraft
 
 
 class DbWrapper:
@@ -9,7 +9,7 @@ class DbWrapper:
     # Opens a file called server_info.cfg and pulls connection info from there
     def __init__(self):
         try:
-            file_lines = open("../server_info.cfg", "r").readlines()
+            file_lines = open("server_info.cfg", "r").readlines()
             self.ip = file_lines[0].strip("\n")
             self.uname = file_lines[1].strip("\n")
             self.password = file_lines[2].strip("\n")
@@ -67,6 +67,18 @@ class DbWrapper:
         self.cursor.execute(f"INSERT INTO flight_orders VALUES ({passenger.pid}, {flight.flight_id})")
         self.connection.commit()
 
+    def load_all_aircraft(self):
+        dict_aircraft = {}
+        self.cursor.execute("SELECT * FROM aircraft")
+        temp_passenger_list = self.cursor.fetchall()
+
+        # Generate passenger objects
+        for val in temp_passenger_list:
+            aircraft = Aircraft()
+            aircraft.make_from_db(val[0], val[1], val[2])
+            dict_aircraft[val[0]] = aircraft
+
+        return dict_aircraft
 
 if __name__ == "__main__":
     db = DbWrapper()

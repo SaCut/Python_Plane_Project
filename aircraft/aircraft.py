@@ -28,7 +28,10 @@ class Aircraft(AbstractDbObject):
         # save it and regenerate it
         return self.save_and_regenerate_with_id(db_wrapper)
 
-
+    def delete_from_db(self, db_wrapper):
+        super().delete_from_db(db_wrapper)
+        db_wrapper.cursor.execute(f"UPDATE flight_trip SET {self.table}_id = Null WHERE {self.table}_id = {self.oid}")
+        db_wrapper.connection.commit()
 
     def fly(self):
         pass

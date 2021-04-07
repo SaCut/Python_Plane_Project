@@ -31,9 +31,14 @@ class FlightTrip (AbstractDbObject):
         duration = self.duration
         origin = self.origin
 
-        db_wrapper.cursor.execute(
-            f"INSERT INTO {self.table} "
-            + f"VALUES ({ticket_price}, Null, '{destination}', {duration}, '{origin}');")
+        if aircraft_id is not None:
+            db_wrapper.cursor.execute(
+                f"INSERT INTO {self.table} "
+                + f"VALUES ({ticket_price}, {aircraft_id}, '{destination}', {duration}, '{origin}');")
+        else:
+            db_wrapper.cursor.execute(
+                f"INSERT INTO {self.table} "
+                + f"VALUES ({ticket_price}, Null, '{destination}', {duration}, '{origin}');")
 
         db_wrapper.connection.commit()
 

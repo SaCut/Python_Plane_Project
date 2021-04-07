@@ -68,13 +68,15 @@ class DbWrapper:
     # add a single flight order to the flight_order table
     def create_ticket_and_add(self, passenger, flight):
         # make a new ticket for the flight
-        self.cursor.execute(f"INSERT INTO flight_orders VALUES ({flight.flight_id})")
+        self.cursor.execute(f"INSERT INTO flight_order VALUES ({flight.oid})")
         self.connection.commit()
 
         # Get the ticket number
-        self.cursor.execute(f"SELECT MAX(ticket_number) FROM tickets")
+        self.cursor.execute(f"SELECT MAX(ticket_number) FROM flight_order")
         uid = self.cursor.fetchone()[0]
 
+
+        print(uid)
         # Assign the passenger to the ticket in the db
         self.cursor.execute(f"INSERT INTO tickets VALUES ({passenger.oid}, {uid})")
         self.connection.commit()
@@ -111,11 +113,13 @@ class DbWrapper:
         return dict_staff
 
     def load_passenger_tickets(self, oid):
-        self.cursor.execute(f"SELECT ticket_number FROM tickets WHERE passengers_id = {oid}")
-        temp_ticket_list = self.cursor.fetchall()
-        print(temp_ticket_list)
-        return temp_ticket_list
-
+        try:
+            self.cursor.execute(f"SELECT ticket_number FROM tickets WHERE passengers_id = {oid}")
+            temp_ticket_list = self.cursor.fetchall()
+            print(temp_ticket_list)
+            return temp_ticket_list
+        except:
+            return []
 
 if __name__ == "__main__":
     db = DbWrapper()

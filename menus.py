@@ -1,5 +1,7 @@
 # To keep run.py cleaner - holds all the code related to displaying and handling menus
 from people.passenger import Passenger
+from aircraft.plane import Plane
+from aircraft.helicopter import Helicopter
 from flight_trip import FlightTrip
 
 # This prints the main menu
@@ -97,8 +99,14 @@ def aircraft_menu(db_wrapper, aircraft_dict):
             break
         elif user_in == 1:
             print("Creating Aircraft")
+            plane = Plane().make_manual(False, 300, db_wrapper)
+            heli = Helicopter().make_manual(False, 5, db_wrapper)
+            aircraft_dict[plane.oid] = plane
+            aircraft_dict[heli.oid] = heli
         elif user_in == 2:
             print("Listing Aircrafts")
+            for aircraft in aircraft_dict.values():
+                print(aircraft)
         elif user_in == 3:
             print("Assigning Aircraft to a flight")
 

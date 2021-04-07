@@ -12,7 +12,7 @@ class Staff(Person):
     def __save_and_regenerate_with_id(self, db_wrapper):
         first_name = self.first_name
         last_name = self.last_name
-        ticket_number = self.ticket_number
+
 
         db_wrapper.cursor.execute(
             f"INSERT INTO {self.table} "

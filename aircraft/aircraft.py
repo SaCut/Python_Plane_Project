@@ -9,6 +9,9 @@ class Aircraft(AbstractDbObject):
         self.flight_capacity = None
         self.type = None
 
+    def __str__(self):
+        return f"{self.oid} {self.flight} {self.flight_capacity} {self.type}"
+
     def save_and_regenerate_with_id(self, db_wrapper):
         db_wrapper.cursor.execute(
             f"INSERT INTO aircraft "
@@ -23,7 +26,7 @@ class Aircraft(AbstractDbObject):
         self.type = type
         return self
 
-    def make_manual(self, flight, capacity, type, db_wrapper):
+    def make_manual(self, flight, capacity, db_wrapper):
         # make a place holder aircraft
         self.make_from_db(None, flight, capacity, type)
 

@@ -1,5 +1,6 @@
 # To keep run.py cleaner - holds all the code related to displaying and handling menus
 from people.passenger import Passenger
+from people.staff import Staff
 from aircraft.plane import Plane
 from aircraft.helicopter import Helicopter
 from flight_trip import FlightTrip
@@ -126,7 +127,7 @@ def staff_menu(staff_dict, flight_dict, db_wrapper):
             break
         elif user_in == 1:
             print("Creating Staff")
-            create_staff()
+            create_staff(staff_dict, db_wrapper)
         elif user_in == 2:
             print("Listing Staff")
             for staff in staff_dict.values():
@@ -174,7 +175,7 @@ def text_input(input_msg, leave_blank=False):
 
 def int_input(input_msg):
     while True:
-        user_input = input(input_msg)
+        user_input = input(input_msg + "\n")
 
         if user_input.isdigit():
             return int(user_input)
@@ -182,8 +183,15 @@ def int_input(input_msg):
             print("You must enter a number\n")
 
 
-def create_staff():
-    pass
+def create_staff(staff_dict, db_wrapper):
+    input_msg = "Enter the staff's "
+
+    first_name = text_input(input_msg + "first name.")
+    last_name = text_input(input_msg + "last name.")
+    age = int_input(input_msg + "age.")
+
+    s = Staff().make_manual(first_name, last_name, age, db_wrapper)
+    staff_dict[s.oid] = s
 
 def assign_staff(flight_dict, staff_dict, db_wrapper):
     flight_id = int_input("Please enter the flight id:\n")

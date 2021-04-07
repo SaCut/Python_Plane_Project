@@ -55,7 +55,7 @@ if __name__ == "__main__":
             menus.passengers_menu(db, dict_passengers, dict_flights)
             flag = "main"
         elif flag == "flights":  # flights menu
-            menus.flights_menu(db, dict_flights)
+            menus.flights_menu(db, dict_flights, dict_passengers)
             flag = "main"
         elif flag == "aircraft":  # aircraft menu
             menus.aircraft_menu()

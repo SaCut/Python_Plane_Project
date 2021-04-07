@@ -32,7 +32,7 @@ def passengers_menu(db_wrapper, passenger_dict, dict_flights):
         print(f"\n1. Create passenger\n"
               f"2. List passengers not on any flight\n"
               f"3. List passengers on a flight\n"
-              f"0. exit\n")
+              f"0. back\n")
 
         user_in = num_input("Please enter a number between 0 and 3\n", 3)
         if user_in == 0:
@@ -58,13 +58,14 @@ def passengers_menu(db_wrapper, passenger_dict, dict_flights):
 
 
 # Displays and handles the flights menu
-def flights_menu(db_wrapper, flight_dict):
+def flights_menu(db_wrapper, flight_dict, passenger_dict):
     while True:
         print(f"\n1. Create Flight (Trip)\n"
           f"2. List Flights (Trip)\n"
-          f"0. exit\n")
+          f"3. Sell Ticket\n"
+          f"0. back\n")
 
-        user_in = num_input("Please enter a number between 0 and 2\n", 2)
+        user_in = num_input("Please enter a number between 0 and 3\n", 3)
         if user_in == 0:
             break
         elif user_in == 1:
@@ -77,6 +78,10 @@ def flights_menu(db_wrapper, flight_dict):
             print("List of flights!")
             for f in flight_dict:
                 print(f)
+
+        elif user_in == 3:
+            # sell the ticket
+            sell_ticket(passenger_dict, flight_dict, db_wrapper)
 
 # Prints the aircraft menu (currently nothing to add)
 def aircraft_menu():
@@ -124,7 +129,7 @@ def int_input(input_msg):
     while True:
         user_input = input(input_msg)
     
-        if user_input.isdecimal():
+        if user_input.isdigit():
             return int(user_input)
         else:
             print("You must enter a number\n")
@@ -139,7 +144,7 @@ def create_passenger(db_wrapper, passenger_dict):
     age = int_input(input_msg + "age.")
     passport_no = text_input(input_msg + "passport number.")
 
-    p = Passenger().make_manual(None, first_name, last_name, age, passport_no, db_wrapper)
+    p = Passenger().make_manual(first_name, last_name, age, passport_no, db_wrapper)
     passenger_dict[p.oid] = p
 
 def create_flight_trip(db_wrapper, flight_dict):
@@ -155,15 +160,18 @@ def create_flight_trip(db_wrapper, flight_dict):
     t = FlightTrip().make_manual(price, aircraft, destination, duration, origin, db_wrapper)
     flight_dict[t.oid] = t
 
-# 
-def sell_ticket(passenger_dict, flight_dict):
+def sell_ticket(passenger_dict, flight_dict, db_wrapper):
+# test with passenger id = and 
 
-    passenger_id = text_input("Enter passenger oid")
+    pass_id_msg = "Enter passenger oid\n"
+    flight_id_msg = "Enter flight oid\n"
+
+    passenger_id = int_input(pass_id_msg)
     while passenger_id not in passenger_dict.keys():
-        passenger_id = text_input("Enter passenger oid")
+        passenger_id = int_input(pass_id_msg)
 
-    flight_id = text_input("Enter flight oid")
+    flight_id = int_input(flight_id_msg)
     while flight_id not in flight_dict.keys():
-        flight_id = text_input("Enter flight oid")
+        flight_id = int_input(flight_id_msg)
 
-    
+    db_wrapper.create_ticket_and_add(passenger_dict[passenger_id], flight_dict[flight_id])

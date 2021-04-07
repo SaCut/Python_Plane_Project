@@ -2,12 +2,6 @@ import menus
 from db_wrapper import DbWrapper
 from login import Login
 
-# run login method
-login_object = Login()
-if login_object.attempt_login():
-    continue
-else:
-    raise Exception("Failed login attempt. Contact your neighbourhood coder.")
 
 # These lists will eventually contain Passenger and Flight objects
 dict_passengers = {}  # Key passenger_id: val Passenger()
@@ -36,7 +30,13 @@ def list_flight_info():
 
 # This is the running code
 if __name__ == "__main__":
-    # This decides if the while loop is running
+    # run login method
+    # login_object = Login()
+    # if login_object.attempt_login():
+    #     pass
+    # else:
+    #     raise Exception("Failed login attempt. Contact your neighbourhood coder.")
+
 
     # This decides which menu to display
     flag = "main"

@@ -95,7 +95,7 @@ class DbWrapper:
         temp_flight_list = self.cursor.fetchall()
         for val in temp_flight_list:
             flight = FlightTrip()
-            flight.make_from_db(val[0], val[1], val[2], val[3], val[4], val[5], self.get_flight_passengers(val[0]), passenger_dict)
+            flight.make_from_db(val[0], val[1], val[2], val[3], val[4], val[5], self.get_flight_passengers(val[0], passenger_dict))
             flight_dict[val[0]] = flight
 
         return flight_dict

@@ -39,8 +39,10 @@ def passengers_menu(db_wrapper, passenger_dict):
         elif user_in == 1:
             print("Creating passenger")
 
-            p = Passenger()
-            p.make_manual("example", "passenger", "tax", "passport", db_wrapper, passenger_dict)
+            # make a passenger and add it to the dict
+            p = Passenger().make_manual("example", "passenger", "tax", "passport", db_wrapper)
+            passenger_dict[p.oid] = p
+
         elif user_in == 2:
             print("List the passengers not in a flight so assistant can add them")
             for p in passenger_dict.values():
@@ -58,7 +60,7 @@ def flights_menu(db_wrapper, flight_dict):
             break
         elif user_in == 1:
             print("Creating a new Flight")
-            t = FlightTrip()
+            t = FlightTrip(None)
             t.make_manual(210, "aircraft_id", "destination", 24, "origin", db_wrapper, flight_dict)
         elif user_in == 2:
             print("Choose a flight to edit!")

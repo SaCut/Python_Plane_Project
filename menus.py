@@ -65,7 +65,7 @@ def flights_menu(db_wrapper, flight_dict):
             t = FlightTrip().make_manual(210, "aircraft_id", "destination", 24, "origin", db_wrapper, flight_dict)
             flight_dict[t.oid] = t
         elif user_in == 2:
-            print("Choose a flight to edit!")
+            print("List of flights!")
             for f in flight_dict:
                 print(f)
 

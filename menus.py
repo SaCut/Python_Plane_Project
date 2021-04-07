@@ -32,7 +32,7 @@ def passengers_menu(db_wrapper, passenger_dict, dict_flights):
         print(f"\n1. Create passenger\n"
               f"2. List passengers not on any flight\n"
               f"3. List passengers on a flight\n"
-              f"0. back\n")
+              f"0. Go back\n")
 
         user_in = num_input("Please enter a number between 0 and 3\n", 3)
         if user_in == 0:
@@ -63,7 +63,7 @@ def flights_menu(db_wrapper, flight_dict, passenger_dict):
         print(f"\n1. Create Flight (Trip)\n"
           f"2. List Flights (Trip)\n"
           f"3. Sell Ticket\n"
-          f"0. back\n")
+          f"0. Go back\n")
 
         user_in = num_input("Please enter a number between 0 and 3\n", 3)
         if user_in == 0:
@@ -83,9 +83,24 @@ def flights_menu(db_wrapper, flight_dict, passenger_dict):
             # sell the ticket
             sell_ticket(passenger_dict, flight_dict, db_wrapper)
 
-# Prints the aircraft menu (currently nothing to add)
-def aircraft_menu():
-    print("In the aircraft menu")
+# Prints the aircraft menu
+def aircraft_menu(db_wrapper, aircraft_dict):
+    # create aircraft, show aircrafts,
+    while True: 
+        print(f"\n1. Create Aircraft\n"
+              f"2. List Aircrafts\n"
+              f"3. Assign Aircraft to Flight\n"
+              f"0. Go back\n")
+
+        user_in = num_input("Please enter a number between 0 and 3\n", 3)
+        if user_in == 0:
+            break
+        elif user_in == 1:
+            print("Creating Aircraft")
+        elif user_in == 2:
+            print("Listing Aircrafts")
+        elif user_in == 3:
+            print("Assigning Aircraft to a flight")
 
 # Prints the staff menu (currently nothing to add)
 def staff_menu():

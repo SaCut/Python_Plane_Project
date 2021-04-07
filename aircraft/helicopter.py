@@ -1,4 +1,4 @@
-from aircraft import Aircraft
+from aircraft.aircraft import Aircraft
 
 
 class Helicopter(Aircraft):

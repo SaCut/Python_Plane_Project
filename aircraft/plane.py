@@ -1,6 +1,4 @@
-from aircraft import Aircraft
-from db_wrapper import DbWrapper
-
+from aircraft.aircraft import Aircraft
 
 class Plane(Aircraft):
     def __init__(self):

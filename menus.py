@@ -4,6 +4,7 @@ from aircraft.plane import Plane
 from aircraft.helicopter import Helicopter
 from flight_trip import FlightTrip
 
+
 # This prints the main menu
 def print_main_menu():
     print(f"\n1. Passengers\n"
@@ -12,6 +13,7 @@ def print_main_menu():
           f"4. Staff\n"
           f"0. exit\n")
     pass
+
 
 # This handles the input for the main menu
 # it sets the flag variable for use in deciding what menu to display
@@ -27,6 +29,7 @@ def handle_main_menu(num):
         return "aircraft"
     elif num == 4:
         return "staff"
+
 
 # Displays and handles the passengers menu
 def passengers_menu(db_wrapper, passenger_dict, dict_flights):
@@ -63,9 +66,9 @@ def passengers_menu(db_wrapper, passenger_dict, dict_flights):
 def flights_menu(db_wrapper, flight_dict, passenger_dict):
     while True:
         print(f"\n1. Create Flight (Trip)\n"
-          f"2. List Flights (Trip)\n"
-          f"3. Sell Ticket\n"
-          f"0. Go back\n")
+              f"2. List Flights (Trip)\n"
+              f"3. Sell Ticket\n"
+              f"0. Go back\n")
 
         user_in = num_input("Please enter a number between 0 and 3\n", 3)
         if user_in == 0:
@@ -85,10 +88,11 @@ def flights_menu(db_wrapper, flight_dict, passenger_dict):
             # sell the ticket
             sell_ticket(passenger_dict, flight_dict, db_wrapper)
 
+
 # Prints the aircraft menu
 def aircraft_menu(db_wrapper, aircraft_dict, flight_dict):
     # create aircraft, show aircrafts,
-    while True: 
+    while True:
         print(f"\n1. Create Aircraft\n"
               f"2. List Aircrafts\n"
               f"3. Assign Aircraft to Flight\n"
@@ -108,9 +112,11 @@ def aircraft_menu(db_wrapper, aircraft_dict, flight_dict):
             print("Assigning Aircraft to a flight")
             assign_aircraft(db_wrapper, aircraft_dict, flight_dict)
 
+
 # Prints the staff menu (currently nothing to add)
 def staff_menu():
     print("In the staff menu")
+
 
 # Universal input manager, takes an input message and an end index and returns the number entered as an int
 def num_input(input_msg, end_index):
@@ -119,14 +125,15 @@ def num_input(input_msg, end_index):
         user_input = input(f"Please enter a number between 0 and {end_index}:\n")
     return int(user_input)
 
+
 # Allows the user to enter text information, following the given prompt
 # The user cannot leave the value blank by default
-def text_input(input_msg, leave_blank = False):
+def text_input(input_msg, leave_blank=False):
     if leave_blank == True:
         exit_prompt = " Or enter 'done' to exit.\n"
     else:
         exit_prompt = " You must enter a value.\n"
-    
+
     # user_input = input(input_msg)
     while True:
         user_input = input(input_msg + exit_prompt)  # ask the user for input
@@ -143,17 +150,19 @@ def text_input(input_msg, leave_blank = False):
             if user_input == "" and leave_blank == False:
                 continue  # don't let the user enter a blank value if leave_blank is false
             return user_input
-        elif user_conf.lower ==  "done" and leave_blank == True:
+        elif user_conf.lower == "done" and leave_blank == True:
             break  # exit it without returning here
+
 
 def int_input(input_msg):
     while True:
         user_input = input(input_msg)
-    
+
         if user_input.isdigit():
             return int(user_input)
         else:
             print("You must enter a number\n")
+
 
 # Creates and returns a new passenger object
 def create_passenger(db_wrapper, passenger_dict):
@@ -168,6 +177,7 @@ def create_passenger(db_wrapper, passenger_dict):
     p = Passenger().make_manual(first_name, last_name, age, passport_no, db_wrapper)
     passenger_dict[p.oid] = p
 
+
 def create_flight_trip(db_wrapper, flight_dict):
     # price (determined by passenger age), aircraft, destination, duration, origin
     input_msg = "Enter the "
@@ -177,9 +187,10 @@ def create_flight_trip(db_wrapper, flight_dict):
     destination = text_input(input_msg + "destination.")
     duration = 24  # temp values
     origin = text_input(input_msg + "flight origin.")
-    
+
     t = FlightTrip().make_manual(price, aircraft, destination, duration, origin, db_wrapper)
     flight_dict[t.oid] = t
+
 
 def create_aircraft(db_wrapper, aircraft_dict):
     input_msg = "Is this aircraft a:\n1. plane\n2. helicopter?\n"
@@ -189,13 +200,13 @@ def create_aircraft(db_wrapper, aircraft_dict):
 
     is_flying = False
     capacity = int_input("What is this aircrafts capacity?\n")
-    
+
     if aircraft_type == 1:
         plane = Plane().make_manual(is_flying, capacity, "plane", db_wrapper)
         aircraft_dict[plane.oid] = plane
     else:
         heli = Helicopter().make_manual(is_flying, capacity, "heli", db_wrapper)
-        aircraft_dict[heli.oid] = heli  
+        aircraft_dict[heli.oid] = heli
 
 
 def assign_aircraft(db_wrapper, aircraft_dict, flight_dict):
@@ -211,7 +222,7 @@ def assign_aircraft(db_wrapper, aircraft_dict, flight_dict):
 
 
 def sell_ticket(passenger_dict, flight_dict, db_wrapper):
-# test with passenger id = and 
+    # test with passenger id = and
 
     pass_id_msg = "Enter passenger oid\n"
     flight_id_msg = "Enter flight oid\n"

@@ -27,13 +27,6 @@ def list_passengers_with_no_flight():
 def list_flight_info():
     pass
 
-# List all passengers on a flight
-def flight_attendees_list_report(flight):
-    flight_info = dict_flights[flight]
-    flight_passengers = flight_info.passenger_list
-    for passenger in flight_passengers:
-        print(passenger)
-
 
 # This is the running code
 if __name__ == "__main__":
@@ -62,7 +55,7 @@ if __name__ == "__main__":
             user_in = menus.num_input("Please select an option between 0 and 4:\n", 4)
             flag = menus.handle_main_menu(user_in)
         elif flag == "passengers":  # passengers menu
-            menus.passengers_menu(db, dict_passengers)
+            menus.passengers_menu(db, dict_passengers, dict_flights)
             flag = "main"
         elif flag == "flights":  # flights menu
             menus.flights_menu(db, dict_flights)

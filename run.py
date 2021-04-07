@@ -16,7 +16,7 @@ def list_all_passengers():
     else:
         for passenger in dict_passengers.values():
             continue
-            # print(passenger['oid'])
+            # print(passenger.oid)
 
 # Lists passengers that have not been assigned to a flight
 def list_passengers_with_no_flight():

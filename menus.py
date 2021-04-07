@@ -175,6 +175,11 @@ def create_flight_trip(db_wrapper, flight_dict):
     t = FlightTrip().make_manual(price, aircraft, destination, duration, origin, db_wrapper)
     flight_dict[t.oid] = t
 
+def create_aircraft(db_wrapper, aircraft_dict):
+    # type: heli or plane (planes also need model no)
+    # 
+    pass
+
 def sell_ticket(passenger_dict, flight_dict, db_wrapper):
 # test with passenger id = and 
 

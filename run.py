@@ -27,6 +27,14 @@ def list_passengers_with_no_flight():
 def list_flight_info():
     pass
 
+# List all passengers on a flight
+def flight_attendees_list_report(flight):
+    flight_info = dict_flights[flight]
+    flight_passengers = flight_info.passenger_list
+    for passenger in flight_passengers:
+        print(passenger)
+
+
 # This is the running code
 if __name__ == "__main__":
     # run login method

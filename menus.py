@@ -39,10 +39,7 @@ def passengers_menu(db_wrapper, passenger_dict, dict_flights):
             break
         elif user_in == 1:
             print("Creating passenger")
-
-            # make a passenger and add it to the dict
-            p = Passenger().make_manual("ex", "passenger", "tax", "passport", db_wrapper)
-            passenger_dict[p.oid] = p
+            create_passenger(db_wrapper, passenger_dict)
 
         elif user_in == 2:
             print("List the passengers not in a flight so assistant can add them")
@@ -74,8 +71,8 @@ def flights_menu(db_wrapper, flight_dict):
             print("Creating a new Flight")
 
             # make a flight_trip and add it to the dict
-            t = FlightTrip().make_manual(210, None, "destination", 24, "origin", db_wrapper)
-            flight_dict[t.oid] = t
+            create_flight_trip(db_wrapper, flight_dict)
+
         elif user_in == 2:
             print("List of flights!")
             for f in flight_dict:
@@ -97,8 +94,13 @@ def num_input(input_msg, end_index):
     return int(user_input)
 
 # Allows the user to enter text information, following the given prompt
-def text_input(input_msg):
-    exit_prompt = " Or enter 'done' to exit. "
+# The user cannot leave the value blank by default
+def text_input(input_msg, leave_blank = False):
+    if leave_blank == True:
+        exit_prompt = " Or enter 'done' to exit.\n"
+    else:
+        exit_prompt = " You must enter a value.\n"
+    
     # user_input = input(input_msg)
     while True:
         user_input = input(input_msg + exit_prompt)  # ask the user for input
@@ -107,11 +109,37 @@ def text_input(input_msg):
         if user_input == "done":
             break
 
-        confirm_msg = "You entered: '" + user_input + "'. Do you wish to continue? (y/n) "
+        confirm_msg = "You entered: '" + user_input + "'. Do you wish to continue? (y/n)\n"
 
         user_conf = input(confirm_msg)
 
         if user_conf.lower() == "y" or user_conf.lower == "yes":
+            if user_input == "" and leave_blank == False:
+                continue  # don't let the user enter a blank value if leave_blank is false
             return user_input
-        elif user_conf.lower ==  "done":
+        elif user_conf.lower ==  "done" and leave_blank == True:
             break  # exit it without returning here
+
+def int_input(input_msg):
+    #user_input = input(input_msg)
+    pass
+
+# Creates and returns a new passenger object
+def create_passenger(db_wrapper, passenger_dict):
+    input_msg = "Enter the passenger's "
+
+    first_name = text_input(input_msg + "first name.")
+    last_name = text_input(input_msg + "last name.")
+    tax_no = text_input(input_msg + "tax number.")
+    passport_no = text_input(input_msg + "passport number.")
+
+    p = Passenger().make_manual(first_name, last_name, tax_no, passport_no, db_wrapper)
+    passenger_dict[p.oid] = p
+
+def create_flight_trip(db_wrapper, flight_dict):
+    # price, aircraft, destination, duration, origin
+    input_msg = "Enter the "
+
+    
+    t = FlightTrip().make_manual(210, None, "destination", 24, "origin", db_wrapper)
+    flight_dict[t.oid] = t

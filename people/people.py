@@ -7,10 +7,12 @@ class Person(AbstractDbObject):
 		super().__init__(oid, table)
 		self.first_name = None
 		self.last_name = None
-		self.tax_number = None
+		self.age = None
+		self.ticket_number = None
 
-	def init_person_data(self, oid, first_name, last_name, tax_no):
+	def init_person_data(self, oid, first_name, last_name, age, ticket_number):
 		self.oid = oid
 		self.first_name = first_name
 		self.last_name = last_name
-		self.tax_number = tax_no
+		self.age = age
+		self.ticket_number = ticket_number

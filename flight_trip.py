@@ -30,16 +30,24 @@ class FlightTrip (AbstractDbObject):
         destination = self.destination
         duration = self.duration
         origin = self.origin
-        
-        db_wrapper.cursor.execute(
-            f"INSERT INTO flight_trip_table "
-            + f"VALUES ('{ticket_price}', '{aircraft_id}', '{destination}', '{duration}, {origin}');")
+
+        if aircraft_id is not None:
+            db_wrapper.cursor.execute(
+                f"INSERT INTO {self.table} "
+                + f"VALUES ({ticket_price}, {aircraft_id}, '{destination}', {duration}, '{origin}');")
+        else:
+            db_wrapper.cursor.execute(
+                f"INSERT INTO {self.table} "
+                + f"VALUES ({ticket_price}, Null, '{destination}', {duration}, '{origin}');")
 
         db_wrapper.connection.commit()
 
         # delete the passenger list
-        db_wrapper.cursor.execute(f"DELETE FROM flight_orders WHERE flight_id = {self.oid}")
-        db_wrapper.connection.commit()
+        try:
+            db_wrapper.cursor.execute(f"DELETE FROM flight_order WHERE {self.table}_id = {self.oid}")
+            db_wrapper.connection.commit()
+        except Exception:
+            print("ouch")
 
         # generate the passenger list
         for passenger in self.passenger_list:
@@ -53,16 +61,13 @@ class FlightTrip (AbstractDbObject):
         db_wrapper.cursor.execute(f"DELETE FROM flight_orders WHERE {self.table}_id = {self.oid}")
         db_wrapper.connection.commit()
 
-    def make_manual(self, ticket_price, aircraft_id, destination, duration, origin, db_wrapper, flight_dict):
+    def make_manual(self, ticket_price, aircraft_id, destination, duration, origin, db_wrapper):
         # make a place holder passenger
         self.make_from_db(None, ticket_price, aircraft_id, destination, duration, origin, [])
 
         # generate the real one
-        # should this be self.__save_and_regenerate_with_id(db_wrapper) ?
-        return self.__save_and_regenerate_with_id(db_wrapper)  # error from run.py: 'DbWrapper' object has no attribute '_FlightTrip__save_and_regenerate_with_id'
+        return self.__save_and_regenerate_with_id(db_wrapper)
 
-    def flight_attendees_list_report(self):
-        pass
 
     def add_passenger(self):
         pass

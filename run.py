@@ -5,8 +5,8 @@ from login import Login
 # These dictionaries will eventually contain Passenger and Flight objects
 dict_passengers = {}  # Key passenger_id: val Passenger()
 dict_flights = {}  # Key flight_id: val FlightTrip()
-aircraft = {}  # Key aircraft_id: val Plane() or Helicopter()
-staff = {}  # Key staff_id: Staff()
+dict_aircraft = {}  # Key aircraft_id: val Plane() or Helicopter()
+dict_staff = {}  # Key staff_id: Staff()
 
 # Creates and returns a new passenger object
 def create_passenger():
@@ -44,6 +44,8 @@ if __name__ == "__main__":
     db_wrapper = DbWrapper()
     dict_passengers = db_wrapper.load_all_passengers()
     dict_flights = db_wrapper.load_all_flights(dict_passengers)
+    dict_aircraft = db_wrapper.load_all_aircraft()
+    dict_staff = db_wrapper.load_all_staff()
 
     while flag != "exit":
         db = DbWrapper()

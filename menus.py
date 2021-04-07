@@ -62,7 +62,7 @@ def flights_menu(db_wrapper, flight_dict):
             print("Creating a new Flight")
 
             # make a flight_trip and add it to the dict
-            t = FlightTrip().make_manual(210, "aircraft_id", "destination", 24, "origin", db_wrapper, flight_dict)
+            t = FlightTrip().make_manual(210, None, "destination", 24, "origin", db_wrapper)
             flight_dict[t.oid] = t
         elif user_in == 2:
             print("List of flights!")

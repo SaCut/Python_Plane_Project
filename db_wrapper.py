@@ -43,7 +43,7 @@ class DbWrapper:
     """ Flight functions """
     # Get all passengers on a flight using flight_order
     def get_flight_passengers(self, flight_id, passenger_list):
-        self.cursor.execute(f"SELECT passenger_id FROM flight_order WHERE flight_id = {flight_id}")
+        self.cursor.execute(f"SELECT passengers_id FROM flight_order WHERE flight_trip_id = {flight_id}")
         flight_passengers = []
         for entry in self.cursor.fetchall():
             flight_passengers.append(passenger_list[entry[0]])
@@ -74,11 +74,24 @@ class DbWrapper:
 
         # Generate passenger objects
         for val in temp_passenger_list:
-            aircraft = Aircraft()
-            aircraft.make_from_db(val[0], val[1], val[2])
+            aircraft = Aircraft().make_from_db(val[0], val[1], val[2])
             dict_aircraft[val[0]] = aircraft
 
         return dict_aircraft
+
+    def load_all_staff(self):
+        dict_staff = {}
+        self.cursor.execute("SELECT * FROM staff")
+        temp_passenger_list = self.cursor.fetchall()
+
+        # Generate passenger objects
+        for val in temp_passenger_list:
+            staff = staff.make_from_db(val[0], val[1], val[2], val[3])
+            dict_staff[val[0]] = staff
+
+        return dict_staff
+
+
 
 if __name__ == "__main__":
     db = DbWrapper()

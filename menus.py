@@ -1,5 +1,6 @@
 # To keep run.py cleaner - holds all the code related to displaying and handling menus
 from people.passenger import Passenger
+from flight_trip import FlightTrip
 
 # This prints the main menu
 def print_main_menu():
@@ -46,10 +47,10 @@ def passengers_menu(db_wrapper, passenger_dict):
                 print(p)
 
 # Displays and handles the flights menu
-def flights_menu():
+def flights_menu(db_wrapper, flight_dict):
     while True:
         print(f"\n1. Create Flight (Trip)\n"
-          f"2. Edit Flight (Trip)\n"
+          f"2. List Flights (Trip)\n"
           f"0. exit\n")
 
         user_in = num_input("Please enter a number between 0 and 2\n", 2)
@@ -57,8 +58,12 @@ def flights_menu():
             break
         elif user_in == 1:
             print("Creating a new Flight")
+            t = FlightTrip()
+            t.make_manual(210, "aircraft_id", "destination", 24, "origin", db_wrapper, flight_dict)
         elif user_in == 2:
             print("Choose a flight to edit!")
+            for f in flight_dict:
+                print(f)
 
 # Prints the aircraft menu (currently nothing to add)
 def aircraft_menu():

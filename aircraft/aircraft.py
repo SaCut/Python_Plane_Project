@@ -26,9 +26,9 @@ class Aircraft(AbstractDbObject):
         self.type = type
         return self
 
-    def make_manual(self, flight, capacity, db_wrapper):
+    def make_manual(self, flight, capacity, aircraft_type, db_wrapper):
         # make a place holder aircraft
-        self.make_from_db(None, flight, capacity, type)
+        self.make_from_db(None, flight, capacity, aircraft_type)
 
         # save it and regenerate it
         return self.save_and_regenerate_with_id(db_wrapper)

@@ -86,7 +86,7 @@ def flights_menu(db_wrapper, flight_dict, passenger_dict):
             sell_ticket(passenger_dict, flight_dict, db_wrapper)
 
 # Prints the aircraft menu
-def aircraft_menu(db_wrapper, aircraft_dict):
+def aircraft_menu(db_wrapper, aircraft_dict, flight_dict):
     # create aircraft, show aircrafts,
     while True: 
         print(f"\n1. Create Aircraft\n"
@@ -99,10 +99,7 @@ def aircraft_menu(db_wrapper, aircraft_dict):
             break
         elif user_in == 1:
             print("Creating Aircraft")
-            plane = Plane().make_manual(False, 300, db_wrapper)
-            heli = Helicopter().make_manual(False, 5, db_wrapper)
-            aircraft_dict[plane.oid] = plane
-            aircraft_dict[heli.oid] = heli
+            create_aircraft(db_wrapper, aircraft_dict)
         elif user_in == 2:
             print("Listing Aircrafts")
             for aircraft in aircraft_dict.values():
@@ -184,9 +181,20 @@ def create_flight_trip(db_wrapper, flight_dict):
     flight_dict[t.oid] = t
 
 def create_aircraft(db_wrapper, aircraft_dict):
-    # type: heli or plane (planes also need model no)
-    # 
-    pass
+    input_msg = "Is this aircraft a:\n1. plane\n2. helicopter?\n"
+    aircraft_type = int_input(input_msg)
+    while aircraft_type != 1 and aircraft_type != 2:
+        aircraft_type = int_input(input_msg)
+
+    is_flying = False
+    capacity = int_input("What is this aircrafts capacity?\n")
+    
+    if aircraft_type == 1:
+        plane = Plane().make_manual(is_flying, capacity, db_wrapper)
+        aircraft_dict[plane.oid] = plane
+    else:
+        heli = Helicopter().make_manual(is_flying, capacity, db_wrapper)
+        aircraft_dict[heli.oid] = heli  
 
 def sell_ticket(passenger_dict, flight_dict, db_wrapper):
 # test with passenger id = and 

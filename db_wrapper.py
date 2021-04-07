@@ -2,6 +2,7 @@ import pyodbc
 from people.passenger import Passenger
 from flight_trip import FlightTrip
 from aircraft.aircraft import Aircraft
+from people.staff import Staff
 
 
 class DbWrapper:
@@ -35,7 +36,7 @@ class DbWrapper:
     # Generate passenger objects
         for val in temp_passenger_list:
             passenger = Passenger()
-            passenger.make_from_db(val[0], val[1], val[2], val[3], val[4])
+            passenger.make_from_db(val[0], val[1], val[2], val[3], val[4], self)
             dict_passengers[val[0]] = passenger
 
         return dict_passengers
@@ -43,7 +44,9 @@ class DbWrapper:
     """ Flight functions """
     # Get all passengers on a flight using flight_order
     def get_flight_passengers(self, flight_id, passenger_list):
-        self.cursor.execute(f"SELECT passengers_id FROM flight_order WHERE flight_trip_id = {flight_id}")
+        self.cursor.execute(f"SELECT DISTINCT passengers_id FROM tickets t "
+                            f"JOIN flight_order f ON t.ticket_number = f.ticket_number "
+                            f"WHERE f.flight_trip_id = {flight_id}")
         flight_passengers = []
         for entry in self.cursor.fetchall():
             flight_passengers.append(passenger_list[entry[0]])
@@ -63,9 +66,25 @@ class DbWrapper:
         return flight_dict
 
     # add a single flight order to the flight_order table
-    def add_single_flight_order(self, passenger, flight):
-        self.cursor.execute(f"INSERT INTO flight_orders VALUES ({passenger.pid}, {flight.flight_id})")
+    def create_ticket_and_add(self, passenger, flight):
+        # make a new ticket for the flight
+        self.cursor.execute(f"INSERT INTO flight_orders VALUES ({flight.flight_id})")
         self.connection.commit()
+
+        # Get the ticket number
+        self.cursor.execute(f"SELECT MAX(ticket_number) FROM tickets")
+        uid = self.cursor.fetchone()[0]
+
+        # Assign the passenger to the ticket in the db
+        self.cursor.execute(f"INSERT INTO tickets VALUES ({passenger.oid}, {uid})")
+        self.connection.commit()
+
+        # Add the ticket to the passenger ticket list
+        passenger.tickets.append(uid)
+
+        # add the passenger to the flight object
+        flight.passenger_list.append(passenger)
+
 
     def load_all_aircraft(self):
         dict_aircraft = {}
@@ -86,11 +105,16 @@ class DbWrapper:
 
         # Generate passenger objects
         for val in temp_passenger_list:
-            staff = staff.make_from_db(val[0], val[1], val[2], val[3])
+            staff = Staff().make_from_db(val[0], val[1], val[2], val[3])
             dict_staff[val[0]] = staff
 
         return dict_staff
 
+    def load_passenger_tickets(self, oid):
+        self.cursor.execute(f"SELECT ticket_number FROM tickets WHERE passengers_id = {oid}")
+        temp_ticket_list = self.cursor.fetchall()
+        print(temp_ticket_list)
+        return temp_ticket_list
 
 
 if __name__ == "__main__":

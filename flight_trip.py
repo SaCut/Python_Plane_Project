@@ -30,7 +30,7 @@ class FlightTrip (AbstractDbObject):
         destination = self.destination
         duration = self.duration
         origin = self.origin
-
+        
         db_wrapper.cursor.execute(
             f"INSERT INTO flight_trip_table "
             + f"VALUES ('{ticket_price}', '{aircraft_id}', '{destination}', '{duration}, {origin}');")
@@ -59,7 +59,7 @@ class FlightTrip (AbstractDbObject):
 
         # generate the real one
         # should this be self.__save_and_regenerate_with_id(db_wrapper) ?
-        return db_wrapper.__save_and_regenerate_with_id(db_wrapper)  # error from run.py: 'DbWrapper' object has no attribute '_FlightTrip__save_and_regenerate_with_id'
+        return self.__save_and_regenerate_with_id(db_wrapper)  # error from run.py: 'DbWrapper' object has no attribute '_FlightTrip__save_and_regenerate_with_id'
 
     def flight_attendees_list_report(self):
         pass

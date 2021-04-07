@@ -2,7 +2,7 @@
 # User should be able to create a new object of the Passenger class
 # A passenger should only be created if all information is provided
 # class Passenger (inherits from Person)
-from people.people import Person
+from people import Person # Dunni's vs code doesn't like people.people
 
 
 class Passenger(Person):

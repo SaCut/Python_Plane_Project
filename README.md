@@ -18,10 +18,10 @@
 Manages the connection between the SQL database and Python code. Saving and loading to and from the database is handled here.
 
 ### [flight_trip.py](flight_trip.py)
-text here
+An object. Each instance contains information about. 
 
 ### [menus.py](menus.py)
-Holds all the code used for displaying and handling the menus used in run.py. Created solely to keep run.py neat.
+Holds all the code used for displaying and handling the menus used in `run.py`. Created solely to keep `run.py` neat.
 
 ### [run.py](run.py)
 This is the 'main' part of the programme from the user's perspective. This is where they interact with the UI (graphical or otherwise) to create or update passengers and flights.

@@ -7,23 +7,25 @@ class Aircraft(AbstractDbObject):
         super().__init__(None, "aircraft")
         self.flight = False  # temp value
         self.flight_capacity = None
+        self.type = None
 
     def save_and_regenerate_with_id(self, db_wrapper):
         db_wrapper.cursor.execute(
             f"INSERT INTO aircraft "
-            + f"VALUES ('{self.flight}', '{self.flight_capacity}');")
+            + f"VALUES ({self.flight}, {self.flight_capacity}, '{self.type}');")
 
         db_wrapper.connection.commit()
 
-    def make_from_db(self, oid, flight, capacity):
+    def make_from_db(self, oid, flight, capacity, type):
         self.oid = oid
         self.flight = flight
         self.flight_capacity = capacity
+        self.type = type
         return self
 
-    def make_manual(self, flight, capacity, db_wrapper):
+    def make_manual(self, flight, capacity, type, db_wrapper):
         # make a place holder aircraft
-        self.make_from_db(None, flight, capacity)
+        self.make_from_db(None, flight, capacity, type)
 
         # save it and regenerate it
         return self.save_and_regenerate_with_id(db_wrapper)

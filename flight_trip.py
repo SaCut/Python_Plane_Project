@@ -68,9 +68,12 @@ class FlightTrip (AbstractDbObject):
         # generate the real one
         return self.__save_and_regenerate_with_id(db_wrapper)
 
+    def assign_aircraft(self, aircraft, db_wrapper):
+        db_wrapper.cursor.execute(f"UPDATE {self.table} "
+                                  f"SET aircraft_id = {aircraft.oid} "
+                                  f"WHERE {self.table}_id = {self.oid}")
+
 
     def add_passenger(self):
         pass
 
-    def assign_plane(self):
-        pass

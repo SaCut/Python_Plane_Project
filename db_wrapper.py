@@ -2,6 +2,8 @@ import pyodbc
 from people.passenger import Passenger
 from flight_trip import FlightTrip
 from aircraft.aircraft import Aircraft
+from aircraft.plane import Plane
+from aircraft.helicopter import Helicopter
 from people.staff import Staff
 
 
@@ -87,7 +89,6 @@ class DbWrapper:
         # add the passenger to the flight object
         flight.passenger_list.append(passenger)
 
-
     def load_all_aircraft(self):
         dict_aircraft = {}
         self.cursor.execute("SELECT * FROM aircraft")
@@ -95,7 +96,11 @@ class DbWrapper:
 
         # Generate passenger objects
         for val in temp_passenger_list:
-            aircraft = Aircraft().make_from_db(val[0], val[1], val[2])
+            aircraft = None
+            if val[3] == "plane":
+                aircraft = Plane().make_from_db(val[0], val[1], val[2], val[3])
+            elif val[3] == "heli":
+                aircraft = Helicopter().make_from_db(val[0], val[1], val[2], val[3])
             dict_aircraft[val[0]] = aircraft
 
         return dict_aircraft

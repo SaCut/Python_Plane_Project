@@ -121,25 +121,36 @@ def text_input(input_msg, leave_blank = False):
             break  # exit it without returning here
 
 def int_input(input_msg):
-    #user_input = input(input_msg)
-    pass
+    while True:
+        user_input = input(input_msg)
+    
+        if user_input.isdecimal():
+            return int(user_input)
+        else:
+            print("You must enter a number\n")
 
 # Creates and returns a new passenger object
 def create_passenger(db_wrapper, passenger_dict):
+    # age, ticket_no, fname, lname, pass_no
     input_msg = "Enter the passenger's "
 
     first_name = text_input(input_msg + "first name.")
     last_name = text_input(input_msg + "last name.")
-    tax_no = text_input(input_msg + "tax number.")
+    age = int_input(input_msg + "age.")
     passport_no = text_input(input_msg + "passport number.")
 
-    p = Passenger().make_manual(first_name, last_name, tax_no, passport_no, db_wrapper)
+    p = Passenger().make_manual(first_name, last_name, age, passport_no, db_wrapper)
     passenger_dict[p.oid] = p
 
 def create_flight_trip(db_wrapper, flight_dict):
-    # price, aircraft, destination, duration, origin
+    # price (determined by passenger age), aircraft, destination, duration, origin
     input_msg = "Enter the "
 
+    price = 210 # temp value
+    aircraft = None
+    destination = text_input(input_msg + "destination.")
+    duration = 24
+    origin = text_input(input_msg + "flight origin.")
     
-    t = FlightTrip().make_manual(210, None, "destination", 24, "origin", db_wrapper)
+    t = FlightTrip().make_manual(price, aircraft, destination, duration, origin, db_wrapper)
     flight_dict[t.oid] = t

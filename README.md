@@ -15,40 +15,40 @@
 
 ## Files and Functionality
 ### [db_wrapper.py](db_wrapper.py)
-text here
+Manages the connection between the SQL database and Python code. Saving and loading to and from the database is handled here.
 
 ### [flight_trip.py](flight_trip.py)
 text here
 
 ### [menus.py](menus.py)
-text here
+Holds all the code used for displaying and handling the menus used in run.py. Created solely to keep run.py neat.
 
 ### [run.py](run.py)
-text here
+This is the 'main' part of the programme from the user's perspective. This is where they interact with the UI (graphical or otherwise) tp create or update passengers and flights.
 
 ### [test_plane_project.py](test_plane_project.py)
-text here
+The unit tests are run from this file.
 
 ### [aircraft](./aircraft)
-text here
+A package for all the aircraft classes.
 
-[aircraft.py](./aircraft/aircraft.py)
-text here
+[aircraft.py](./aircraft/aircraft.py) -
+The parent class for all the aircraft classes.
 
-[helicopter.py](./aircraft/helicopter.py)
-text here
+[helicopter.py](./aircraft/helicopter.py) -
+A child of aircraft. It currently inherits all its properties.
 
-[plane.py](./aircraft/plane.py)
-text here
+[plane.py](./aircraft/plane.py) -
+A child of aircraft. It currently inherits all its properties and also extends them with the variable `plane_model`.
 
 ### [people](./people)
 text here
 
-[passenger.py](./people/passenger.py)
+[passenger.py](./people/passenger.py) -
 text here
 
-[people.py](./people/people.py)
+[people.py](./people/people.py) -
 text here
 
-[staff.py](./people/staff.py)
+[staff.py](./people/staff.py) -
 text here

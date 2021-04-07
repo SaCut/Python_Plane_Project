@@ -66,7 +66,7 @@ if __name__ == "__main__":
             menus.aircraft_menu(db, dict_aircraft, dict_flights)
             flag = "main"
         elif flag == "staff":  # staff menu
-            menus.staff_menu()
+            menus.staff_menu(dict_staff, dict_flights, db_wrapper)
             flag = "main"
 
     db_wrapper.connection.close()

@@ -114,8 +114,26 @@ def aircraft_menu(db_wrapper, aircraft_dict, flight_dict):
 
 
 # Prints the staff menu (currently nothing to add)
-def staff_menu():
-    print("In the staff menu")
+def staff_menu(staff_dict, flight_dict, db_wrapper):
+    while True:
+        print(f"\n1. Create Staff\n"
+              f"2. List Staff\n"
+              f"3. Assign Flight to Staff\n"
+              f"0. Go back\n")
+
+        user_in = num_input("Please enter a number between 0 and 3\n", 3)
+        if user_in == 0:
+            break
+        elif user_in == 1:
+            print("Creating Staff")
+            create_staff()
+        elif user_in == 2:
+            print("Listing Staff")
+            for staff in staff_dict.values():
+                print(staff)
+        elif user_in == 3:
+            print("Assigning Flight to a staff")
+            assign_staff(flight_dict, staff_dict, db_wrapper)
 
 
 # Universal input manager, takes an input message and an end index and returns the number entered as an int
@@ -163,6 +181,20 @@ def int_input(input_msg):
         else:
             print("You must enter a number\n")
 
+
+def create_staff():
+    pass
+
+def assign_staff(flight_dict, staff_dict, db_wrapper):
+    flight_id = int_input("Please enter the flight id:\n")
+    while flight_id not in flight_dict.keys():
+        flight_id = int_input("Please enter the flight id:\n")
+
+    staff_id = int_input("Please enter the aircraft id:\n")
+    while staff_id not in staff_dict.keys():
+        staff_id = int_input("Please enter the aircraft id:\n")
+
+    staff_dict[staff_id].assign_flight(flight_dict[flight_id], db_wrapper)
 
 # Creates and returns a new passenger object
 def create_passenger(db_wrapper, passenger_dict):

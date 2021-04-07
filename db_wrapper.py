@@ -43,7 +43,7 @@ class DbWrapper:
     """ Flight functions """
     # Get all passengers on a flight using flight_order
     def get_flight_passengers(self, flight_id, passenger_list):
-        self.cursor.execute(f"SELECT passenger_id FROM flight_order WHERE flight_id = {flight_id}")
+        self.cursor.execute(f"SELECT passengers_id FROM flight_order WHERE flight_trip_id = {flight_id}")
         flight_passengers = []
         for entry in self.cursor.fetchall():
             flight_passengers.append(passenger_list[entry[0]])

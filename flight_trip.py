@@ -33,13 +33,16 @@ class FlightTrip (AbstractDbObject):
 
         db_wrapper.cursor.execute(
             f"INSERT INTO {self.table} "
-            + f"VALUES ('{ticket_price}', '{aircraft_id}', '{destination}', '{duration}, {origin}');")
+            + f"VALUES ({ticket_price}, Null, '{destination}', {duration}, '{origin}');")
 
         db_wrapper.connection.commit()
 
         # delete the passenger list
-        db_wrapper.cursor.execute(f"DELETE FROM flight_orders WHERE {self.table}_id = {self.oid}")
-        db_wrapper.connection.commit()
+        try:
+            db_wrapper.cursor.execute(f"DELETE FROM flight_order WHERE {self.table}_id = {self.oid}")
+            db_wrapper.connection.commit()
+        except Exception:
+            print("ouch")
 
         # generate the passenger list
         for passenger in self.passenger_list:

@@ -5,11 +5,11 @@ from login import Login
 # run login method
 login_object = Login()
 if login_object.attempt_login():
-    continue
+    pass
 else:
     raise Exception("Failed login attempt. Contact your neighbourhood coder.")
 
-# These lists will eventually contain Passenger and Flight objects
+# These dictionaries will eventually contain Passenger and Flight objects
 dict_passengers = {}  # Key passenger_id: val Passenger()
 dict_flights = {}  # Key flight_id: val FlightTrip()
 aircraft = {}  # Key aircraft_id: val Plane() or Helicopter()

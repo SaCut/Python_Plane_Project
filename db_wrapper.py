@@ -74,11 +74,24 @@ class DbWrapper:
 
         # Generate passenger objects
         for val in temp_passenger_list:
-            aircraft = Aircraft()
-            aircraft.make_from_db(val[0], val[1], val[2])
+            aircraft = Aircraft().make_from_db(val[0], val[1], val[2])
             dict_aircraft[val[0]] = aircraft
 
         return dict_aircraft
+
+    def load_all_staff(self):
+        dict_staff = {}
+        self.cursor.execute("SELECT * FROM staff")
+        temp_passenger_list = self.cursor.fetchall()
+
+        # Generate passenger objects
+        for val in temp_passenger_list:
+            staff = staff.make_from_db(val[0], val[1], val[2], val[3])
+            dict_staff[val[0]] = staff
+
+        return dict_staff
+
+
 
 if __name__ == "__main__":
     db = DbWrapper()

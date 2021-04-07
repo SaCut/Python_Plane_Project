@@ -68,9 +68,6 @@ class FlightTrip (AbstractDbObject):
         # generate the real one
         return self.__save_and_regenerate_with_id(db_wrapper)
 
-    def flight_attendees_list_report(self):
-        pass
-
     def add_passenger(self):
         pass
 

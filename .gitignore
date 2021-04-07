@@ -7,12 +7,10 @@ __pycache__/
 
 # for VS Code
 .vscode/
+*/__init__.py
 
 # for the project
 notes/
 
 # for server information
 server_info.cfg
-
-# for testing
-*/__init__.py

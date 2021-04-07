@@ -35,9 +35,8 @@ class Login:
 
             else:
                 print("Username not found\n")
+                attempts -= 1
                 continue
-
-            attempts -= 1
 
         return False # return False if the correct password has not been inserted
 

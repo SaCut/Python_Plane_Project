@@ -2,8 +2,7 @@ import menus
 from db_wrapper import DbWrapper
 from login import Login
 
-
-# These lists will eventually contain Passenger and Flight objects
+# These dictionaries will eventually contain Passenger and Flight objects
 dict_passengers = {}  # Key passenger_id: val Passenger()
 dict_flights = {}  # Key flight_id: val FlightTrip()
 aircraft = {}  # Key aircraft_id: val Plane() or Helicopter()

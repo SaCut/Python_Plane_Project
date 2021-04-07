@@ -2,6 +2,7 @@ import menus
 from db_wrapper import DbWrapper
 from login import Login
 
+# run login method
 login_object = Login()
 if login_object.attempt_login():
     continue

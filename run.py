@@ -16,7 +16,7 @@ def list_all_passengers():
     else:
         for passenger in dict_passengers.values():
             continue
-            # print(passenger['oid'])
+            # print(passenger.oid)
 
 # Lists passengers that have not been assigned to a flight
 def list_passengers_with_no_flight():
@@ -63,10 +63,10 @@ if __name__ == "__main__":
             menus.flights_menu(db, dict_flights, dict_passengers)
             flag = "main"
         elif flag == "aircraft":  # aircraft menu
-            menus.aircraft_menu(db, dict_aircraft)
+            menus.aircraft_menu(db, dict_aircraft, dict_flights)
             flag = "main"
         elif flag == "staff":  # staff menu
-            menus.staff_menu()
+            menus.staff_menu(dict_staff, dict_flights, db_wrapper)
             flag = "main"
 
     db_wrapper.connection.close()

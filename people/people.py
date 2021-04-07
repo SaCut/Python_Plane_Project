@@ -8,11 +8,9 @@ class Person(AbstractDbObject):
 		self.first_name = None
 		self.last_name = None
 		self.age = None
-		self.tickets = []
 
-	def init_person_data(self, oid, first_name, last_name, age, db_wrapper):
+	def init_person_data(self, oid, first_name, last_name, age):
 		self.oid = oid
 		self.first_name = first_name
 		self.last_name = last_name
 		self.age = age
-		self.tickets = db_wrapper.load_passenger_tickets(self.oid)

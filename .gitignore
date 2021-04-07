@@ -8,6 +8,7 @@ __pycache__/
 # for VS Code
 .vscode/
 */__init__.py
+__init__.py
 
 # for the project
 notes/

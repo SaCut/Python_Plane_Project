@@ -52,7 +52,7 @@ class DbWrapper:
     # Load all FlightTrip objects
     def load_all_flights(self, passenger_dict):
         flight_dict = {}
-        self.cursor.execute("SELECT * FROM flight_trip_table")
+        self.cursor.execute("SELECT * FROM flight_trip")
         temp_flight_list = self.cursor.fetchall()
         for val in temp_flight_list:
             flight = FlightTrip()
@@ -65,6 +65,7 @@ class DbWrapper:
     def add_single_flight_order(self, passenger, flight):
         self.cursor.execute(f"INSERT INTO flight_orders VALUES ({passenger.pid}, {flight.flight_id})")
         self.connection.commit()
+
 
 if __name__ == "__main__":
     db = DbWrapper()

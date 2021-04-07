@@ -3,8 +3,8 @@ from abstract_db_record import AbstractDbObject
 
 class Aircraft(AbstractDbObject):
 
-    def __init__(self, oid, table):
-        super().__init__(oid, table)
+    def __init__(self, oid):
+        super().__init__(oid, "aircraft")
         self.flight = False  # temp value
         self.flight_capacity = None
 

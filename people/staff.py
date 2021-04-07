@@ -5,8 +5,8 @@ class Staff(Person):
     def __init__(self):
         super().__init__(None, "staff")
 
-    def make_from_db(self, oid, first_name, last_name, tax_no):
-        super().init_person_data(oid, first_name, last_name, tax_no)
+    def make_from_db(self, oid, first_name, last_name, ticket_number):
+        super().init_person_data(oid, first_name, last_name, ticket_number)
         return self
 
     def __save_and_regenerate_with_id(self, db_wrapper):

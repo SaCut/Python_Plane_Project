@@ -1,7 +1,7 @@
 import menus
 from db_wrapper import DbWrapper
 from login import Login
-from people import Passenger
+from people.passenger import Passenger
 
 # These dictionaries will eventually contain Passenger and Flight objects
 dict_passengers = {}  # Key passenger_id: val Passenger()

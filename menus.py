@@ -55,13 +55,7 @@ def passengers_menu(db_wrapper, passenger_dict, dict_flights):
 
         elif user_in == 3:
             flight_no = int(input("Please enter a flight ID:\n"))
-            try:
-                print(f"Passengers on flight {flight_no}:")
-                flight_passengers = dict_flights[flight_no].passenger_list
-                for passenger in flight_passengers:
-                    print(f"{passenger.first_name} {passenger.last_name} - {passenger.passport_number}\n")
-            except KeyError:
-                print("Flight not found")
+            get_passengers_on_flight(flight_no, dict_flights)
 
 
 # Displays and handles the flights menu
@@ -230,6 +224,17 @@ def create_passenger(db_wrapper, passenger_dict):
 
     p = Passenger().make_manual(first_name, last_name, age, passport_no, db_wrapper)
     passenger_dict[p.oid] = p
+
+
+# get passenger names and passport numbers from a certain flight
+def get_passengers_on_flight(flight_no, flight_dict):
+    try:
+        print(f"Passengers on flight {flight_no}:")
+        flight_passengers = flight_dict[flight_no].passenger_list
+        for passenger in flight_passengers:
+            print(f"{passenger.first_name} {passenger.last_name} - {passenger.passport_number}\n")
+    except KeyError:
+        print("Flight not found")
 
 
 def create_flight_trip(db_wrapper, flight_dict):

@@ -26,13 +26,12 @@ class Login:
 
                 # retrieving the hashed password from the database
                 get_pswd = self.database.cursor.execute(f"SELECT password FROM login_credentials WHERE username = '{username}'").fetchone()
-                get_pswd = list(get_pswd)[0].encode('utf-8')
+                get_pswd = list(get_pswd)[0]
 
                 run_pswd = input("Insert password: ")
 
                 # hashing the user-given password
                 check_pswd = self.hash_password(username, run_pswd)
-                # check_pswd = hashlib.pbkdf2_hmac('sha256', run_pswd.encode('utf-8'), get_salt, 1000)
 
                 if check_pswd == get_pswd:
                     return True # returns True when the password is correct
@@ -53,12 +52,7 @@ class Login:
         password = input("Insert new password: ")
         salt = os.urandom(10) # this is a binary string encoded in utf-8
 
-        # removing troublesome characters
-        salt = str(user["salt"])
-        salt = salt.replace("'", "k")
-        salt = salt.replace("/", "j")
-        salt = salt.replace("\\", "n")
-        salt = salt.replace("\"", "o")
+        salt = self.bin_to_str(salt)
 
         all_unames = self.database.cursor.execute("SELECT username FROM login_credentials").fetchall()
         all_unames = [list(uname)[0] for uname in all_unames]
@@ -90,6 +84,15 @@ class Login:
         else:
             return False
 
+    def bin_to_str(self, binary):
+        string = str(binary) # replace() requires a string
+        string = string.replace("'", "k")
+        string = string.replace("/", "j")
+        string = string.replace("\\", "n")
+        string = string.replace("\"", "o")
+
+        return string
+
 
     def hash_password(self, username, password):
         username = str(username)
@@ -103,19 +106,11 @@ class Login:
             get_salt = self.database.cursor.execute(f"SELECT salt FROM login_credentials WHERE username = '{username}'").fetchone()
             get_salt = get_salt.salt
 
-        # print("1")
-        # print(password)
-        # print(get_salt)
+
 
         # hashing the password
         hash_pswd = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), get_salt.encode("utf-8"), 1000)
-
-        #removing troublesome characters
-        hash_pswd = str(hash_pswd) # replace() requires a string
-        hash_pswd = hash_pswd.replace("'", "k")
-        hash_pswd = hash_pswd.replace("/", "j")
-        hash_pswd = hash_pswd.replace("\\", "n")
-        hash_pswd = hash_pswd.replace("\"", "o")
+        hash_pswd = self.bin_to_str(hash_pswd)
 
         # print(hash_pswd)
 
@@ -129,9 +124,7 @@ class Login:
         get_pswd = self.database.cursor.execute(f"SELECT password FROM login_credentials WHERE username = '{username}'").fetchone()
         get_pswd = get_pswd.password
 
-        # print("2")
-        # print(password)
-        # print(get_salt)
+        print("2")
 
         # hashing the user-given password
         check_pswd = self.hash_password(username, password)        

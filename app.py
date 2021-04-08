@@ -1,10 +1,15 @@
 from flask import Flask, render_template, redirect, url_for, request
 import login as lg
-
+from db_wrapper import DbWrapper
 app = Flask(__name__)
 
 log = lg.Login()
+global db
 
+global dict_passengers
+global dict_flights
+global dict_aircraft
+global dict_staff
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -37,6 +42,7 @@ def home():
 
 @app.route("/flight/")
 def flight():
+
     return render_template("flight.html")
 
 
@@ -55,5 +61,12 @@ def staff():
     return render_template("staff.html")
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
+    # Essential db loading code
+    db_wrapper = DbWrapper()
+    dict_passengers = db_wrapper.load_all_passengers()
+    dict_flights = db_wrapper.load_all_flights(dict_passengers)
+    dict_aircraft = db_wrapper.load_all_aircraft()
+    dict_staff = db_wrapper.load_all_staff()
+
     app.run(debug=True)

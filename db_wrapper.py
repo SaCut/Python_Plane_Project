@@ -138,12 +138,7 @@ class DbWrapper:
         try:
             self.cursor.execute(f"SELECT ticket_number FROM tickets WHERE passengers_id = {oid}")
             temp_ticket_list = self.cursor.fetchall()
-            print(temp_ticket_list)
             return temp_ticket_list
         except:
             return []
 
-if __name__ == "__main__":
-    db = DbWrapper()
-    psg = db.load_all_passengers()
-    db.load_all_flights(psg)

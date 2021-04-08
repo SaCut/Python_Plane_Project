@@ -164,6 +164,9 @@ class Login:
         # check_pswd = check_pswd.replace("\\", "n")
         # check_pswd = check_pswd.replace("\"", "o")
 
+        print(check_pswd)
+        print(get_pswd)
+
 
         if check_pswd == get_pswd:
             return True # returns True when the password is correct
@@ -173,7 +176,5 @@ class Login:
 
 
 if __name__=='__main__':
-    # log_object = Login()
-    # log_object.new_account()
-
-    print(object.right_password("admin", object.hash_password("admin", "admin")))
+    log_object = Login()
+    log_object.new_account()

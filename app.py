@@ -151,6 +151,20 @@ def aircraft_new():
     return render_template("aircraft_new.html")
 
 
+@app.route("/aircraft_assign_to_flight/<a_id>",  methods=["GET", "POST"])
+def aircraft_assign_to_flight(a_id):
+    if request.method == "POST":
+        try:
+            aircraft_flight = dict_flights[int(request.form["flight"].split(" ")[0])]
+            aircraft_obj = dict_aircraft[int(a_id.split(" ")[0])]
+            aircraft_flight.assign_aircraft(aircraft_obj, db_wrapper)
+            return redirect(url_for("aircraft"))
+        except:
+            return redirect(url_for("aircraft"))
+
+    return render_template("aircraft_assign_to_flight.html", a_id=a_id, dict_flights=dict_flights)
+
+
 @app.route("/staff/")
 def staff():
     return render_template("staff.html", len=len(dict_staff), dict_staff=dict_staff)
@@ -182,7 +196,7 @@ def staff_assign_to_plane(staff_id):
             staff_obj.assign_flight(staff_flight, db_wrapper)
             return redirect(url_for("staff"))
         except:
-            return redirect(url_for("staff_new"))
+            return redirect(url_for("staff"))
 
     return render_template("staff_assign_to_plane.html", staff_id=staff_id, dict_flights=dict_flights)
 

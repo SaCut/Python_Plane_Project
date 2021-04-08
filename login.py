@@ -105,10 +105,7 @@ class Login:
             get_salt = self.database.cursor.execute(f"SELECT salt FROM login_credentials WHERE username = '{username}'").fetchone()
             get_salt = get_salt.salt
 
-            # print("hash_password(): get_salt")
-            # print(get_salt + "\n")
-
-        elif salt is not None: # needs salt when making a new user
+        elif salt is not None:  # needs salt when making a new user
             get_salt = salt
 
         else: # if something unforeseen hass happened
@@ -118,10 +115,6 @@ class Login:
         # hashing the password
         m = hashlib.sha256((self.bin_to_str(get_salt) + password).encode("UTF-8")).digest()
         m = self.bin_to_str(m)
-
-
-        print("hash_password(): hash_password")
-        print(m, "\n")
 
         return m
 
@@ -134,9 +127,9 @@ class Login:
         # hashing the user-given password
         check_pswd = self.hash_password(username, password)
 
-        print("right_password(): check_pswd")
+        print("password provided:")
         print(check_pswd, "\n")
-        print("right_password(): get_pswd")
+        print("This is from the database:")
         print(get_pswd, "\n")
 
 
@@ -147,9 +140,9 @@ class Login:
             return False # returns False when the password is wrong
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     # log_object = Login()
     # log_object.new_account()
     object = Login()
-    print(object.right_password("admin", object.hash_password("admin", "admin")))
+    print(object.right_password("admin", "admin"))
 

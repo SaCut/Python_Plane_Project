@@ -3,7 +3,7 @@ import login as lg
 from db_wrapper import DbWrapper
 from people.staff import Staff
 from people.passenger import Passenger
-from aircraft.aircraft import Aircraft
+from flight_trip import FlightTrip
 from aircraft.plane import Plane
 from aircraft.helicopter import Helicopter
 app = Flask(__name__)
@@ -55,9 +55,15 @@ def flight_info(f_id):
     return render_template("flight_info.html", f_id= f_id, dict_flights=dict_flights)
 
 
-
-@app.route("/flight_new/")
+@app.route("/flight_new/", methods=["GET", "POST"])
 def flight_new():
+    if request.method == "POST":
+        try:
+            f = FlightTrip().make_manual(request.form["price"], None, request.form["destination"], request.form["duration"], request.form["origin"], db_wrapper)
+            dict_flights[f.oid] = f
+            return redirect(url_for("flight"))
+        except:
+            return redirect(url_for("flight_new"))
     return render_template("flight_new.html")
 
 

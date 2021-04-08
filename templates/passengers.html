@@ -5,7 +5,11 @@
 
 <ol>
     {%for i in range(1, len + 1)%}
-    <a href="{{ url_for('passenger_info', passenger_id= dict_passengers[i]) }}"><li>{{dict_passengers[i]}}</li></a>
+    <div class="alert alert-dark" role="alert">
+        <a href="{{ url_for('passenger_info', p_id=dict_passengers[i].oid) }}">
+            <li>{{dict_passengers[i]}}</li>
+        </a>
+    </div>
     {%endfor%}
 </ol>
 {% endblock %}

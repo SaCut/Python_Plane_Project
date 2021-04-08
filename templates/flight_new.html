@@ -18,6 +18,13 @@
     <label for="exampleFormControlInput1">Origin</label>
     <input type="text" class="form-control" name="origin" id="Origin" placeholder="eg. London">
   </div>
+  <select class="form-control form-control-sm" name="aircraft">
+        {% for i in dict_aircraft.values() %}
+
+        <option>{{i}}</option>
+
+        {%endfor%}
+        </select>
   <input class="btn btn-default" type="submit" value="Confirm">
 </form>
 

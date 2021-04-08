@@ -193,16 +193,18 @@ def create_staff(staff_dict, db_wrapper):
     s = Staff().make_manual(first_name, last_name, age, db_wrapper)
     staff_dict[s.oid] = s
 
+
 def assign_staff(flight_dict, staff_dict, db_wrapper):
+    staff_id = int_input("Please enter the staff id:\n")
+    while staff_id not in staff_dict.keys():
+        staff_id = int_input("Please enter the staff id:\n")
+
     flight_id = int_input("Please enter the flight id:\n")
     while flight_id not in flight_dict.keys():
         flight_id = int_input("Please enter the flight id:\n")
 
-    staff_id = int_input("Please enter the aircraft id:\n")
-    while staff_id not in staff_dict.keys():
-        staff_id = int_input("Please enter the aircraft id:\n")
-
     staff_dict[staff_id].assign_flight(flight_dict[flight_id], db_wrapper)
+
 
 # Creates and returns a new passenger object
 def create_passenger(db_wrapper, passenger_dict):

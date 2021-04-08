@@ -60,7 +60,7 @@ def flight_info(f_id):
 def flight_passengers(f_id):
     passenger_list = dict_flights[int(f_id)].passenger_list
     print(passenger_list)
-    return render_template("flight_passengers.html", len=len(passenger_list), passenger_list=passenger_list)
+    return render_template("flight_passengers.html", len=len(passenger_list), passenger_list=passenger_list, f_id=f_id)
 
 @app.route("/flight_new/", methods=["GET", "POST"])
 def flight_new():

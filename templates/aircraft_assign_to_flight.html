@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block body %}
- <a href="/aircraft/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Back</a>
+ <a href="/aircraft/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Back to Aircraft</a>
 
-    <h1>Aircraft ID: {{a_id}}</h1>
+    <h1>Assign Aircraft ID: {{a_id}} to a flight</h1>
     <form action="{{ url_for('aircraft_assign_to_flight', a_id=a_id) }}" method="POST">
 
         <select class="form-control form-control-sm" name="flight">

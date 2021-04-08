@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}New Aircraft{% endblock %}
+
+{% block body %}
+<a href="/aircraft/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">back</a>
+<form>
+  <div class="form-group">
+    <label for="FormControlInputAircraftType">Type of Aircraft</label>
+    <select type="text" class="form-control" id="FormControlInputAircraftType" placeholder="">
+        <option value="">Plane</option>
+        <option value="">Helicopter</option>
+    </select>
+  </div>
+</form>
+<a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">confirm</a>
+{% endblock %}

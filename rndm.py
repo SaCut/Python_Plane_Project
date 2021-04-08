@@ -5,6 +5,8 @@ object = Login()
 # object.hash_password("admin", "admin")
 # object.right_password("admin", "admin")
 print(object.right_password("admin", object.hash_password("admin", "admin")))
+# for _ in range(4):
+#     print(object.hash_password("admin", "admin"))
 
 # hash_password:
 "bkhnxe3nxe3nxb1nxc2nxb2nxe3nxf7nx94]nx0cZnxadnx08lnxecnxe9nxb0S]Vnxbenxa8,nxd7nxb3nx18nx97-nnUnxe6k"

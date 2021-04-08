@@ -74,9 +74,9 @@ def passengers():
     return render_template("passengers.html", len=len(dict_passengers), dict_passengers=dict_passengers)
 
 
-@app.route("/passenger_info/<passenger_id>",)
-def passenger_info(passenger_id):
-    return render_template("staff_info.html", passenger_id=passenger_id)
+@app.route("/passenger_info/<p_id>")
+def passenger_info(p_id):
+    return render_template("staff_info.html", p_id=int(p_id), dict_passengers=dict_passengers, list_len=len(dict_passengers[int(p_id)].tickets))
 
 
 @app.route("/passengers_new/", methods=["GET", "POST"])

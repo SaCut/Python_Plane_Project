@@ -18,7 +18,7 @@
 The base/parent class for all database objects.
 
 ### [app.py](app.py)
-This handles which web pages should be served to the user.
+This handles which web pages should be served to the user. The web app is run from here.
 
 ### [db_wrapper.py](db_wrapper.py)
 Manages the connection between the SQL database and Python code. Saving and loading to and from the database is handled here.
@@ -62,17 +62,66 @@ Holds the `Person` class. It's the parent for all people classes.
 [staff.py](./people/staff.py) -
 A child of the `Person` class, specifically for staff members.
 
-### [templates](templates)
-Holds the template html files.
+### [static](./static)
+A folder containing JS and CSS files.
+
+[flight.css](./static/flight.css) -
+The styling for the web UI lives here.
+
+### [templates](./templates)
+Holds the html files.
+
+[aircraft_info.html](./templates/aircraft_info.html) -
+The user can view an individual aircraft's info here.
+
+[aircraft_new.html](./templates/aircraft_new.html) - 
+The page for adding new aircrafts.
+
+[aircraft.html](./templates/aircraft.html) -
+Lists all the aircraft objects.
+
+---
 
 [base.html](./templates/base.html) -
-The template for desplaying the site navigation.
+The template for displaying the site navigation.
+
+---
+
+[flight_info.html](./templates/flight_info.html) - 
+The user can view an individual flight's info here.
+
+[flight_new.html](./templates/flight_new.html) -
+The page for adding new flights.
 
 [flight.html](./templates/flight.html) -
-The template for desplaying flights.
+Displays flight information.
+
+---
+
+[home.html](./templates/home.html) - 
+The home page for the web UI.
 
 [login.html](./templates/login.html) -
-The template login form.  
+Displays the login form.  
+
+---
+
+[passenger_info.html](./templates/passenger_info.html) -
+The user can view an individual passenger's info here.
+
+[passenger_new.html](./templates/passenger_new.html) -
+The page for adding new passengers.
 
 [passengers.html](./templates/passengers.html) -
-text here
+Where the user can view all the passengers.
+
+---
+
+[staff_info.html](./templates/staff_info.html) -
+The user can view an individual staff member's info here.
+
+[staff_new.html](./templates/staff_new.html) - 
+The page for adding new staff objects.
+
+[staff.html](./templates/staff.html) - 
+Displays all the staff objects in a list.

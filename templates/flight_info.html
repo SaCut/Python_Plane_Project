@@ -3,5 +3,15 @@
 {% block body %}
 <a href="/flight/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">back</a>
 
-<h1>{{f_id}}</h1>
+<h1>Flight ID: {{f_id}}</h1>
+
+<ol>
+    <li>Ticket price: {%flight_dict[f_id].ticket_price%}</li>
+    <li>{%i.aircraft%}</li>
+    <li>{%i.duration%}</li>
+    <li>{%i.destination%}</li>
+    <li>{%i.origin%}</li>
+    <li>{%i.passenget_list%}</li>
+</ol>
+
 {% endblock %}

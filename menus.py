@@ -48,9 +48,10 @@ def passengers_menu(db_wrapper, passenger_dict, dict_flights):
             create_passenger(db_wrapper, passenger_dict)
 
         elif user_in == 2:
-            print("List the passengers not in a flight so assistant can add them")
-            for p in passenger_dict.values():
-                print(p)
+            list_passengers_not_in_flight(passenger_dict, dict_flights)
+            # print("List the passengers not in a flight so assistant can add them")
+            # for p in passenger_dict.values():
+            #     print(p)
 
         elif user_in == 3:
             flight_no = int(input("Please enter a flight ID:\n"))
@@ -298,3 +299,17 @@ def sell_ticket(passenger_dict, flight_dict, db_wrapper):
             print("Sorry that flight is full")
     else:
         print("Please assign an aircraft to this flight first!")
+
+# this is just to get functionality - it won't look nice
+def list_passengers_not_in_flight(passenger_dict, flight_dict):
+    # create a list of passengers in a flight
+    # return the passengers that are *not* in that list
+    passengers_in_flight = []
+    for flight in flight_dict.values():
+        for passenger in passenger_dict.values():
+            if passenger in flight.passenger_list:
+                passengers_in_flight.append(passenger)
+
+    for passenger in passenger_dict.values():
+        if passenger not in passengers_in_flight:
+            print(passenger)

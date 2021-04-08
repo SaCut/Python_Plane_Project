@@ -275,4 +275,13 @@ def sell_ticket(passenger_dict, flight_dict, db_wrapper):
     while flight_id not in flight_dict.keys():
         flight_id = int_input(flight_id_msg)
 
-    db_wrapper.create_ticket_and_add(passenger_dict[passenger_id], flight_dict[flight_id])
+    flight = flight_dict[flight_id]
+    print(flight.aircraft)
+    if flight.aircraft is not None:
+        # If the amount of passengers taking up seats is equal to or less than the capacity of the plane assigned
+        if flight.get_seated_passenger_count(db_wrapper) < flight.aircraft.flight_capacity:
+            db_wrapper.create_ticket_and_add(passenger_dict[passenger_id], flight)
+        else:
+            print("Sorry that flight is full")
+    else:
+        print("Please assign an aircraft to this flight first!")

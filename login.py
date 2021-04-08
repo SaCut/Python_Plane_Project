@@ -53,34 +53,22 @@ class Login:
         password = input("Insert new password: ")
         salt = os.urandom(10) # this is a binary string encoded in utf-8
 
+        # removing troublesome characters
+        salt = str(user["salt"])
+        salt = salt.replace("'", "k")
+        salt = salt.replace("/", "j")
+        salt = salt.replace("\\", "n")
+        salt = salt.replace("\"", "o")
+
         all_unames = self.database.cursor.execute("SELECT username FROM login_credentials").fetchall()
         all_unames = [list(uname)[0] for uname in all_unames]
 
         if username not in all_unames: # if there is no similar username
-            user = {
-            "username": username,
-            "salt": salt,
-            }
 
-            user["password"] = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), user["salt"], 1000) # hashing the password
-
-            uname = user["username"]
-            # removing troublesome characters
-            salt = str(user["salt"])
-            salt = salt.replace("'", "k")
-            salt = salt.replace("/", "j")
-            salt = salt.replace("\\", "n")
-            salt = salt.replace("\"", "o")
-
-            #removing troublesome characters
-            pwd = str(user["password"])
-            pwd = pwd.replace("'", "k")
-            pwd = pwd.replace("/", "j")
-            pwd = pwd.replace("\\", "n")
-            pwd = pwd.replace("\"", "o")
+            hash_pswd = self.hash_password(username, password)
 
 
-            self.database.cursor.execute(f"INSERT INTO login_credentials (username, salt, password) VALUES ('{uname}', '{salt}', '{pwd}');")
+            self.database.cursor.execute(f"INSERT INTO login_credentials (username, salt, password) VALUES ('{username}', '{salt}', '{hash_pswd}');")
 
             self.database.connection.commit()
 
@@ -137,13 +125,6 @@ class Login:
         username = str(username)
         password = str(password)
 
-        # all_unames = self.database.cursor.execute("SELECT username FROM login_credentials").fetchall()
-        # all_unames = [list(uname)[0] for uname in all_unames]
-
-        # retrieving the salt from the database
-        # get_salt = self.database.cursor.execute(f"SELECT salt FROM login_credentials WHERE username = '{username}'").fetchone()
-        # get_salt = get_salt.salt
-
         # retrieving the hashed password from the database
         get_pswd = self.database.cursor.execute(f"SELECT password FROM login_credentials WHERE username = '{username}'").fetchone()
         get_pswd = get_pswd.password
@@ -153,16 +134,7 @@ class Login:
         # print(get_salt)
 
         # hashing the user-given password
-        
         check_pswd = self.hash_password(username, password)        
-        # check_pswd = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), get_salt.encode('utf-8'), 1000)
-
-        # #removing troublesome characters
-        # check_pswd = str(check_pswd) # replace() requires a string
-        # check_pswd = check_pswd.replace("'", "k")
-        # check_pswd = check_pswd.replace("/", "j")
-        # check_pswd = check_pswd.replace("\\", "n")
-        # check_pswd = check_pswd.replace("\"", "o")
 
         print(check_pswd)
         print(get_pswd)

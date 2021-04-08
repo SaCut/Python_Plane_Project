@@ -1,8 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, request
 import login as lg
 from db_wrapper import DbWrapper
-from menus import *
 from people.staff import Staff
+from people.passenger import Passenger
+from flight_trip import FlightTrip
+from aircraft.plane import Plane
+from aircraft.helicopter import Helicopter
 app = Flask(__name__)
 
 log = lg.Login()
@@ -52,20 +55,59 @@ def flight_info(f_id):
     return render_template("flight_info.html", f_id= f_id, dict_flights=dict_flights)
 
 
-
-@app.route("/flight_new/")
+@app.route("/flight_new/", methods=["GET", "POST"])
 def flight_new():
+    if request.method == "POST":
+        try:
+            f = FlightTrip().make_manual(request.form["price"], None, request.form["destination"], request.form["duration"], request.form["origin"], db_wrapper)
+            dict_flights[f.oid] = f
+            return redirect(url_for("flight"))
+        except:
+            return redirect(url_for("flight_new"))
     return render_template("flight_new.html")
 
 
 @app.route("/passengers/")
 def passengers():
-    return render_template("passengers.html")
+    return render_template("passengers.html", len=len(dict_passengers), dict_passengers=dict_passengers)
+
+
+@app.route("/passenger_info/<passenger_id>",)
+def passenger_info(passenger_id):
+    return render_template("staff_info.html", passenger_id=passenger_id)
+
+
+@app.route("/passengers_new/", methods=["GET", "POST"])
+def passengers_new():
+    if request.method == "POST":
+        try:
+            p = Passenger().make_manual(request.form["firstname"], request.form["secondname"], request.form["age"], request.form["passport"], db_wrapper)
+            dict_passengers[p.oid] = p
+            return redirect(url_for("passengers"))
+        except:
+            return redirect(url_for("passengers_new"))
+    return render_template("passengers_new.html")
 
 
 @app.route("/aircraft/")
 def aircraft():
     return render_template("aircraft.html")
+
+
+@app.route("/aircraft_new/", methods=["GET", "POST"])
+def aircraft_new():
+    if request.method == "POST":
+        try:
+            if request.form["type"] == "plane":
+                a = Plane().make_manual(False, request.form["capacity"], request.form["type"], db_wrapper)
+            else:
+                a = Helicopter().make_manual(False, request.form["capacity"],  request.form["type"], db_wrapper)
+
+            dict_passengers[a.oid] = a
+            return redirect(url_for("aircraft"))
+        except:
+            return redirect(url_for("aircraft_new"))
+    return render_template("aircraft_new.html")
 
 
 @app.route("/staff/")

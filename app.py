@@ -53,8 +53,14 @@ def flight():
 
 @app.route("/flight_info/<f_id>")
 def flight_info(f_id):
-    return render_template("flight_info.html", len=len(dict_flights[int(f_id)].passenger_list), f_id=int(f_id), dict_flights=dict_flights)
+    return render_template("flight_info.html", len=len(dict_flights[int(f_id)].passenger_list), f_id=int(f_id), dict_flights=dict_flights, db_wrapper=db_wrapper)
 
+
+@app.route("/flight_passengers/<f_id>", methods=["GET", "POST"])
+def flight_passengers(f_id):
+    passenger_list = dict_flights[int(f_id)].passenger_list
+    print(passenger_list)
+    return render_template("flight_passengers.html", len=len(passenger_list), passenger_list=passenger_list)
 
 
 @app.route("/flight_new/", methods=["GET", "POST"])
@@ -76,7 +82,7 @@ def passengers():
 
 @app.route("/passenger_info/<p_id>")
 def passenger_info(p_id):
-    return render_template("staff_info.html", p_id=int(p_id), dict_passengers=dict_passengers, list_len=len(dict_passengers[int(p_id)].tickets))
+    return render_template("passenger_info.html", p_id=int(p_id), dict_passengers=dict_passengers, list_len=len(dict_passengers[int(p_id)].tickets))
 
 
 @app.route("/passengers_new/", methods=["GET", "POST"])

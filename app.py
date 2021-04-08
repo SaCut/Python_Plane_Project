@@ -2,10 +2,11 @@ from flask import Flask, render_template, redirect, url_for, request
 import login as lg
 from db_wrapper import DbWrapper
 from menus import *
+from people.staff import Staff
 app = Flask(__name__)
 
 log = lg.Login()
-global db
+global db_wrapper
 
 global dict_passengers
 global dict_flights
@@ -48,7 +49,7 @@ def flight():
 
 @app.route("/flight_info/<f_id>")
 def flight_info(f_id):
-    return render_template("flight_info.html", f_id= f_id)
+    return render_template("flight_info.html", f_id=f_id)
 
 
 @app.route("/flight_new/")
@@ -71,13 +72,20 @@ def staff():
     return render_template("staff.html", len=len(dict_staff), dict_staff=dict_staff)
 
 
-@app.route("/staff_info/<staff_id>")
+@app.route("/staff_info/<staff_id>",)
 def staff_info(staff_id):
     return render_template("staff_info.html", staff_id=staff_id)
 
 
-@app.route("/staff_new/")
+@app.route("/staff_new/", methods=["GET", "POST"])
 def staff_new():
+    if request.method == "POST":
+        try:
+            s = Staff().make_manual(request.form["firstname"], request.form["secondname"], request.form["age"], db_wrapper)
+            dict_staff[s.oid] = s
+            return redirect(url_for("staff"))
+        except:
+            return redirect(url_for("staff_new"))
     return render_template("staff_new.html")
 
 

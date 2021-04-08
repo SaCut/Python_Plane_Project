@@ -6,12 +6,24 @@
 <h1>Flight ID: {{f_id}}</h1>
 
 <ol>
-    <li>Ticket price: {%flight_dict[f_id].ticket_price%}</li>
-    <li>{%i.aircraft%}</li>
-    <li>{%i.duration%}</li>
-    <li>{%i.destination%}</li>
-    <li>{%i.origin%}</li>
-    <li>{%i.passenget_list%}</li>
-</ol>
+    <div class="alert alert-dark" role="alert">
+        <li>Ticket price: £{{dict_flights[f_id].ticket_price}}</li>
+    </div>
+
+    <div class="alert alert-dark" role="alert">
+        <li>Flight duration: {{dict_flights[f_id].duration}}</li>
+    </div>
+
+    <div class="alert alert-dark" role="alert">
+        <li>Destination: {{dict_flights[f_id].destination}}</li>
+    </div>
+
+    <div class="alert alert-dark" role="alert">
+        <li>From: {{dict_flights[f_id].origin}}</li>
+    </div>
+
+    <div class="alert alert-dark" role="alert">
+       <li>Filled seats: {{len}}</li>
+    </div>
 
 {% endblock %}

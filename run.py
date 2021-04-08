@@ -17,11 +17,11 @@ def list_flight_info():
 # This is the running code
 if __name__ == "__main__":
     # run login method
-    # login_object = Login()
-    # if login_object.attempt_login():
-    #     pass
-    # else:
-    #     raise Exception("Failed login attempt. Contact your neighbourhood coder.")
+    login_object = Login()
+    if login_object.attempt_login():
+        pass
+    else:
+        raise Exception("Failed login attempt. Contact your neighbourhood coder.")
 
 
     # This decides which menu to display

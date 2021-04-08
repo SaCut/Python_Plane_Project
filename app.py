@@ -1,14 +1,16 @@
 from flask import Flask, render_template, redirect, url_for, request
 import login as lg
-
+from db_wrapper import DbWrapper
+from menus import *
 app = Flask(__name__)
 
 log = lg.Login()
+global db
 
-# creating an app instance
-@app.route("/flight/")
-def flight():
-    return render_template("flight.html")
+global dict_passengers
+global dict_flights
+global dict_aircraft
+global dict_staff
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -33,16 +35,48 @@ def login():
 
     return render_template("login.html", error=error)
 
+
+@app.route("/home/")
+def home():
+    return render_template("home.html")
+
+
+@app.route("/flight/")
+def flight():
+    return render_template("flight.html", len=len(dict_flights), dict_flights=dict_flights)
+
+
+@app.route("/flight_info/<f_id>")
+def flight_info(f_id):
+    return render_template("flight_info.html", f_id= f_id)
+
+
+@app.route("/flight_new/")
+def flight_new():
+    return render_template("flight_new.html")
+
+
 @app.route("/passengers/")
 def passengers():
     return render_template("passengers.html")
 
-@app.route("/flight/")
-def flight():
-    return render_template("flight.html")
 
-# create two more routes, add the functionality for email and password
+@app.route("/aircraft/")
+def aircraft():
+    return render_template("aircraft.html")
 
 
-if __name__=='__main__':
+@app.route("/staff/")
+def staff():
+    return render_template("staff.html")
+
+
+if __name__ == '__main__':
+    # Essential db loading code
+    db_wrapper = DbWrapper()
+    dict_passengers = db_wrapper.load_all_passengers()
+    dict_flights = db_wrapper.load_all_flights(dict_passengers)
+    dict_aircraft = db_wrapper.load_all_aircraft()
+    dict_staff = db_wrapper.load_all_staff()
+
     app.run(debug=True)

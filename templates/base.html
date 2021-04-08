@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -18,8 +18,8 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="{{ url_for('flight') }}">Flights<span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="{{ url_for('passengers') }}">Passengers</a>
-      <a class="nav-item nav-link" href="#">Customers</a>
-      <a class="nav-item nav-link" href="#">Temp</a>
+      <a class="nav-item nav-link" href="{{ url_for('aircraft') }}">Aircraft</a>
+      <a class="nav-item nav-link" href="{{ url_for('staff') }}">Staff</a>
     </div>
   </div>
 </nav>

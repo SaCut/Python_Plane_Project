@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+<a href="/flight/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Back to flights</a>
+
+    {%for i in passenger_list%}
+        <a href="{{ url_for('passenger_info', passenger_id= i.oid) }}">
+            <div class="alert alert-dark" role="alert">
+                <li>{{i}}</li>
+            </div>
+        </a>
+    {%endfor%}
+
+{% endblock %}

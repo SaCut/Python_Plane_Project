@@ -7,7 +7,7 @@ class Staff(Person):
         self.flight_assign = None
 
     def __str__(self):
-        return f"{self.oid}. {self.first_name} {self.last_name} {self.age} {self.flight_assign}"
+        return f"{self.oid} {self.first_name} {self.last_name} {self.age} {self.flight_assign}"
 
     def make_from_db(self, oid, first_name, last_name, age, flight_assign):
         super().init_person_data(oid, first_name, last_name, age)

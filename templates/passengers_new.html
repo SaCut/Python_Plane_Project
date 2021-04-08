@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
-<a href="/passenger/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">back</a>
-<form action="{{ url_for('passengers_new')}}" method="POST">
+<a href="/passengers/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">back</a>
+<form action="{{ url_for('passengers_new') }}" method="POST">
   <div class="form-group">
     <label for="exampleFormControlInput1">First Name</label>
     <input type="text" class="form-control" name="firstname" id="FirstName" placeholder="eg. elon">

@@ -4,7 +4,33 @@
 {% block body %}
 <a href="/passengers/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Back</a>
 
-<h1>{{passenger_id}}</h1>
+<h1>Passenget ID: {{p_id}}</h1>
+
+<ol>
+
+    <div class="alert alert-dark" role="alert">
+        <li>Flight duration: {{dict_passengers[p_id].first_name}}</li>
+    </div>
+
+    <div class="alert alert-dark" role="alert">
+        <li>Destination: {{dict_passengers[p_id].last_name}}</li>
+    </div>
+
+    <div class="alert alert-dark" role="alert">
+        <li>From: {{dict_passengers[p_id].age}}</li>
+    </div>
+
+    <div class="alert alert-dark" role="alert">
+        <li>Passport number: {{dict_passengers[p_id].passport_number}}</li>
+    </div>
+
+    {%for i in range(1, list_len +1)%}
+    <div class="alert alert-dark" role="alert">
+        <li>Booked flight: {{dict_passengers[p_id].tickets[i]}}</li>
+    </div>
+    {%endfor%}
+
+</ol>
 
 <a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Sell a ticket</a>
 {% endblock %}

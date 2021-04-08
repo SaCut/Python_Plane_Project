@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+
+
+{% block head %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% endblock %}
+
+
+{% block body %}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Login Form -->
+    <form action="{{ url_for('login')}}" method="POST" class="login100-form validate-form" id="form1">
+        <input type="text" placeholder="Username" name="username" value="{{request.form.username}}">
+        <input type="password" placeholder="Password" name="password" value="{{request.form.password}}">
+        <input class="btn btn-default" type="submit" value="Login">
+    </form>
+
+  </div>
+</div>
+{% endblock %}

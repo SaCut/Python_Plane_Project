@@ -1,1 +1,30 @@
 {% extends "base.html" %}
+{% block body %}
+<a href="/passengers/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">back</a>
+<form>
+  <div class="form-group">
+    <label for="FormControlFirstName">First Name</label>
+    <input type="text" class="form-control" id="FormControlFirstName" placeholder="eg. Jon">
+  </div>
+  <div class="form-group">
+    <label for="FormControlLastName">Last Name</label>
+    <input type="text" class="form-control" id="FormControlLastName" placeholder="eg. Snow">
+  </div>
+  <div class="form-group">
+    <label for="FormControlAge">Age</label>
+    <input type="number" class="form-control" id="FormControlAge" placeholder="eg. 24">
+  </div>
+  <div class="form-group">
+    <label for="FormControlPassportNumber">Passport Number</label>
+    <input type="number" class="form-control" id="FormControlPassportNumber" placeholder="eg. 12345">
+  </div>
+</form>
+<a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">confirm</a>
+
+<ol>
+    {%for i in range(1, len + 1)%}
+    <a href="{{ url_for('flight_info', f_id= dict_flights[i].oid) }}"><li>{{dict_flights[i]}}</li></a>
+    {%endfor%}
+</ol>
+
+{% endblock %}

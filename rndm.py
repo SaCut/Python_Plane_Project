@@ -1,12 +1,10 @@
-from login import Login
+from db_wrapper import DbWrapper
 
-object = Login()
+db_wrapper = DbWrapper()
+dict_passengers = db_wrapper.load_all_passengers()
+dict_flights = db_wrapper.load_all_flights(dict_passengers)
+dict_aircraft = db_wrapper.load_all_aircraft()
+dict_staff = db_wrapper.load_all_staff()
 
-# object.hash_password("admin", "admin")
-# object.right_password("admin", "admin")
-print(object.right_password("admin", object.hash_password("admin", "admin")))
-# for _ in range(4):
-#     print(object.hash_password("admin", "admin"))
-
-"bknx9dnx96nxcc[oSnx9anx98nxd9nx02k"
-"bknx9dnx96nxcc[oSnx9anx98nxd9nx02k"
+for i in dict_passengers.values():
+    print(dir(i))

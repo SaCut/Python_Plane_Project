@@ -49,7 +49,8 @@ def flight():
 
 @app.route("/flight_info/<f_id>")
 def flight_info(f_id):
-    return render_template("flight_info.html", f_id=f_id)
+    return render_template("flight_info.html", f_id= f_id, dict_flights=dict_flights)
+
 
 
 @app.route("/flight_new/")

@@ -69,8 +69,21 @@ class DbWrapper:
 
     # add a single flight order to the flight_order table
     def create_ticket_and_add(self, passenger, flight):
+        # get the ticket type we will use based on the age of the passenger and get the discount applied
+        type = "adult"
+        if passenger.age < 2:
+            type = "infant"
+        elif passenger.age < 12:
+            type = "child"
+
+        self.cursor.execute(f"SELECT discount FROM ticket_types WHERE ticket_type = '{type}'")
+        discount = float(self.cursor.fetchone()[0])
+
+        # get discounted ticket price
+        price = flight.ticket_price * discount
+
         # make a new ticket for the flight
-        self.cursor.execute(f"INSERT INTO flight_order VALUES ({flight.oid})")
+        self.cursor.execute(f"INSERT INTO flight_order VALUES ('{type}', {price}, {flight.oid})")
         self.connection.commit()
 
         # Get the ticket number

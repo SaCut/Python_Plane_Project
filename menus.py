@@ -69,9 +69,10 @@ def flights_menu(db_wrapper, flight_dict, passenger_dict):
         print(f"\n1. Create Flight (Trip)\n"
               f"2. List Flights (Trip)\n"
               f"3. Sell Ticket\n"
+              f"4. Breakdown flight info\n"
               f"0. Go back\n")
 
-        user_in = num_input("Please enter a number between 0 and 3\n", 3)
+        user_in = num_input("Please enter a number between 0 and 4\n", 4)
         if user_in == 0:
             break
         elif user_in == 1:
@@ -88,6 +89,9 @@ def flights_menu(db_wrapper, flight_dict, passenger_dict):
         elif user_in == 3:
             # sell the ticket
             sell_ticket(passenger_dict, flight_dict, db_wrapper)
+
+        elif user_in == 4:
+            breakdown_flight(flight_dict, db_wrapper)
 
 
 # Prints the aircraft menu
@@ -183,6 +187,13 @@ def int_input(input_msg):
             print("You must enter a number\n")
 
 
+def breakdown_flight(flight_dict, db_wrapper):
+    flight_id = int_input("Please enter the flight id:\n")
+    while flight_id not in flight_dict.keys():
+        flight_id = int_input("Please enter the flight id:\n")
+
+    flight_dict[flight_id].breakdown_flight_info(db_wrapper)
+
 def create_staff(staff_dict, db_wrapper):
     input_msg = "Enter the staff's "
 
@@ -193,16 +204,18 @@ def create_staff(staff_dict, db_wrapper):
     s = Staff().make_manual(first_name, last_name, age, db_wrapper)
     staff_dict[s.oid] = s
 
+
 def assign_staff(flight_dict, staff_dict, db_wrapper):
+    staff_id = int_input("Please enter the staff id:\n")
+    while staff_id not in staff_dict.keys():
+        staff_id = int_input("Please enter the staff id:\n")
+
     flight_id = int_input("Please enter the flight id:\n")
     while flight_id not in flight_dict.keys():
         flight_id = int_input("Please enter the flight id:\n")
 
-    staff_id = int_input("Please enter the aircraft id:\n")
-    while staff_id not in staff_dict.keys():
-        staff_id = int_input("Please enter the aircraft id:\n")
-
     staff_dict[staff_id].assign_flight(flight_dict[flight_id], db_wrapper)
+
 
 # Creates and returns a new passenger object
 def create_passenger(db_wrapper, passenger_dict):
@@ -275,4 +288,13 @@ def sell_ticket(passenger_dict, flight_dict, db_wrapper):
     while flight_id not in flight_dict.keys():
         flight_id = int_input(flight_id_msg)
 
-    db_wrapper.create_ticket_and_add(passenger_dict[passenger_id], flight_dict[flight_id])
+    flight = flight_dict[flight_id]
+    print(flight.aircraft)
+    if flight.aircraft is not None:
+        # If the amount of passengers taking up seats is equal to or less than the capacity of the plane assigned
+        if flight.get_seated_passenger_count(db_wrapper) < flight.aircraft.flight_capacity:
+            db_wrapper.create_ticket_and_add(passenger_dict[passenger_id], flight)
+        else:
+            print("Sorry that flight is full")
+    else:
+        print("Please assign an aircraft to this flight first!")

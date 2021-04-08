@@ -59,8 +59,7 @@ class Login:
 
         if username not in all_unames: # if there is no similar username
 
-            hash_pswd = self.hash_password(username, password)
-
+            hash_pswd = self.hash_password(username, password, salt)
 
             self.database.cursor.execute(f"INSERT INTO login_credentials (username, salt, password) VALUES ('{username}', '{salt}', '{hash_pswd}');")
 
@@ -94,43 +93,50 @@ class Login:
         return string
 
 
-    def hash_password(self, username, password):
+    def hash_password(self, username, password, salt=None):
         username = str(username)
         password = str(password)
 
         all_unames = self.database.cursor.execute("SELECT username FROM login_credentials").fetchall()
-        all_unames = [list(uname)[0] for uname in all_unames]
+        all_unames = [uname.username for uname in all_unames]
 
         if username in all_unames:
             # retrieving the salt from the database
             get_salt = self.database.cursor.execute(f"SELECT salt FROM login_credentials WHERE username = '{username}'").fetchone()
             get_salt = get_salt.salt
 
+            # print("hash_password(): get_salt")
+            # print(get_salt + "\n")
 
+        elif salt is not None: # needs salt when making a new user
+            get_salt = salt
+
+        else: # if something unforeseen hass happened
+            print("Hashing impossible. No salt found")
+            return None
 
         # hashing the password
         hash_pswd = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), get_salt.encode("utf-8"), 1000)
         hash_pswd = self.bin_to_str(hash_pswd)
 
-        # print(hash_pswd)
+        print("hash_password(): hash_password")
+        print(hash_pswd + "\n")
 
         return hash_pswd
 
     def right_password(self, username, password):
-        username = str(username)
-        password = str(password)
 
         # retrieving the hashed password from the database
         get_pswd = self.database.cursor.execute(f"SELECT password FROM login_credentials WHERE username = '{username}'").fetchone()
         get_pswd = get_pswd.password
 
-        print("2")
-
         # hashing the user-given password
-        check_pswd = self.hash_password(username, password)        
+        check_pswd = self.hash_password(username, password)
 
-        print(check_pswd)
-        print(get_pswd)
+        print("right_password(): check_pswd")
+        print(check_pswd + "\n")
+        print("right_password(): get_pswd")
+        print(get_pswd + "\n")
 
 
         if check_pswd == get_pswd:

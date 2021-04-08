@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+<a href="/staff/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">back</a>
+<form>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">First Name</label>
+    <input type="text" class="form-control" id="FormControlInputFirstName" placeholder="eg. elon">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Second Name</label>
+    <input type="text" class="form-control" id="FormControlInputSecondName" placeholder="eg. Musk">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">age</label>
+    <input type="number" class="form-control" id="FormControlAge" placeholder="eg. 24">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Passport Number</label>
+    <input type="text" class="form-control" id="FormControlPassport" placeholder="eg. 12345678">
+  </div>
+</form>
+<a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">confirm</a>
+
+{% endblock %}

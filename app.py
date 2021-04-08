@@ -68,7 +68,17 @@ def aircraft():
 
 @app.route("/staff/")
 def staff():
-    return render_template("staff.html")
+    return render_template("staff.html", len=len(dict_staff), dict_staff=dict_staff)
+
+
+@app.route("/staff_info/<staff_id>")
+def staff_info(staff_id):
+    return render_template("staff_info.html", staff_id=staff_id)
+
+
+@app.route("/staff_new/")
+def staff_new():
+    return render_template("staff_new.html")
 
 
 if __name__ == '__main__':

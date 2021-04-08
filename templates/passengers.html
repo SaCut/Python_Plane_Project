@@ -21,4 +21,10 @@
 </form>
 <a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">confirm</a>
 
+<ol>
+    {%for i in range(1, len + 1)%}
+    <a href="{{ url_for('flight_info', f_id= dict_flights[i].oid) }}"><li>{{dict_flights[i]}}</li></a>
+    {%endfor%}
+</ol>
+
 {% endblock %}

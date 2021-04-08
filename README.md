@@ -13,6 +13,16 @@
 - Agile methodology
 - Scrum framework
 
+## To Run
+### [run.py](run.py)
+Command line interface program
+
+### [app.py](app.py)
+Flask based GUI program
+
+### [login.py](login.py)
+When run this enables you to create a new username and password
+
 ## Files and Functionality
 ### [abstract_db_record.py](abstract_db_record.py)
 The base/parent class for all database objects.

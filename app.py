@@ -5,10 +5,6 @@ app = Flask(__name__)
 
 log = lg.Login()
 
-# creating an app instance
-@app.route("/flight/")
-def flight():
-    return render_template("flight.html")
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -33,15 +29,30 @@ def login():
 
     return render_template("login.html", error=error)
 
-@app.route("/passengers/")
-def passengers():
-    return render_template("passengers.html")
+
+@app.route("/home/")
+def home():
+    return render_template("home.html")
+
 
 @app.route("/flight/")
 def flight():
     return render_template("flight.html")
 
-# create two more routes, add the functionality for email and password
+
+@app.route("/passengers/")
+def passengers():
+    return render_template("passengers.html")
+
+
+@app.route("/aircraft/")
+def aircraft():
+    return render_template("aircraft.html")
+
+
+@app.route("/staff/")
+def staff():
+    return render_template("staff.html")
 
 
 if __name__=='__main__':

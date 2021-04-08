@@ -10,31 +10,11 @@
 
 
 {% block body %}
-<div class="list-group">
+<a href="/flight_new/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">New flight</a>
 
-    <div class="container">
-        <div class="row"></div>
-            <div class="col">From</div>
-            <div class="col">To</div>
-            <div class="col">n.</div>
-            <div class="col">Departure</div>
-            <div class="col">arrival</div>
-        </div>
-    </div>
-
-    <a href="#" class="list-group-item list-group-item-action active">
-        
-    </a>
-    <!-- {% for flight in flights_dict %}
-    <a href="#" class="list-group-item list-group-item-action active">
-        <div class="row"></div>
-        <div class="col">{{ flight_from }}</div>
-        <div class="col">{{ flight_to }}</div>
-        <div class="col">{{ flight_no }}</div>
-        <div class="col">{{ flight_time_go }}</div>
-        <div class="col">{{ flight_time_come }}</div>
-    </a>
-    {% endfor %} -->
-
-</div>
+<ol>
+    {%for i in range(1, len + 1)%}
+    <a href="{{ url_for('flight_info', f_id= dict_flights[i].oid) }}"><li>{{dict_flights[i]}}</li></a>
+    {%endfor%}
+</ol>
 {% endblock %}

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 import login as lg
 from db_wrapper import DbWrapper
+from menus import *
 app = Flask(__name__)
 
 log = lg.Login()
@@ -42,8 +43,17 @@ def home():
 
 @app.route("/flight/")
 def flight():
+    return render_template("flight.html", len=len(dict_flights), dict_flights=dict_flights)
 
-    return render_template("flight.html")
+
+@app.route("/flight_info/<f_id>")
+def flight_info(f_id):
+    return render_template("flight_info.html", f_id= f_id)
+
+
+@app.route("/flight_new/")
+def flight_new():
+    return render_template("flight_new.html")
 
 
 @app.route("/passengers/")

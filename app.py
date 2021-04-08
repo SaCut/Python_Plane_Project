@@ -102,9 +102,10 @@ def aircraft():
     return render_template("aircraft.html", len=len(dict_aircraft), dict_aircraft=dict_aircraft)
 
 
-@app.route("/aircraft_info/<aircraft_id>")
-def aircraft_info(aircraft_id):
-    return render_template("aircraft_info.html", aircraft_id=aircraft_id, dict_aircraft=dict_aircraft)
+@app.route("/aircraft_info/<a_id>")
+def aircraft_info(a_id):
+    return render_template("aircraft_info.html", a_id=int(a_id), dict_aircraft=dict_aircraft)
+
 
 
 @app.route("/aircraft_new/", methods=["GET", "POST"])

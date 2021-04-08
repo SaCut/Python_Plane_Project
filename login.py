@@ -141,8 +141,6 @@ class Login:
 
 
 if __name__ == '__main__':
-    # log_object = Login()
-    # log_object.new_account()
-    object = Login()
-    print(object.right_password("admin", "admin"))
+    log_object = Login()
+    log_object.new_account()
 

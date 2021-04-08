@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, request
 import login as lg
 from db_wrapper import DbWrapper
-from menus import *
 from people.staff import Staff
+from people.passenger import Passenger
 app = Flask(__name__)
 
 log = lg.Login()
@@ -60,7 +60,24 @@ def flight_new():
 
 @app.route("/passengers/")
 def passengers():
-    return render_template("passengers.html")
+    return render_template("passengers.html", len=len(dict_passengers), dict_passengers=dict_passengers)
+
+
+@app.route("/passenger_info/<passenger_id>",)
+def passenger_info(passenger_id):
+    return render_template("staff_info.html", passenger_id=passenger_id)
+
+
+@app.route("/passengers_new/", methods=["GET", "POST"])
+def passengers_new():
+    if request.method == "POST":
+        try:
+            p = Passenger().make_manual(request.form["firstname"], request.form["secondname"], request.form["age"], request.form["passport"], db_wrapper)
+            dict_passengers[p.oid] = p
+            return redirect(url_for("passengers"))
+        except:
+            return redirect(url_for("passengers_new"))
+    return render_template("passengers_new.html")
 
 
 @app.route("/aircraft/")

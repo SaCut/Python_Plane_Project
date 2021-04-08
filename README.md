@@ -50,12 +50,6 @@ A child of `Aircraft`. It currently inherits all its properties.
 [plane.py](./aircraft/plane.py) -
 A child of `Aircraft`. It currently inherits all its properties and also extends them with the variable `plane_model`.
 
-### [GUI](GUI)
-A folder for the GUI files.
-
-[GUI.py](./GUI/GUI.py) -
-Where the graphical user interface is managed.
-
 ### [people](./people)
 A package for all people classes.
 

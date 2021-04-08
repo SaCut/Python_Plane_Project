@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
- <a href="/staff/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Back to Staff</a>
+ <a href="/staff/" class="btn btn-primary" style="margin-bottom: 10px" tabindex="-1" role="button" aria-disabled="true">Back to Staff</a>
 
     <h1>Staff ID: {{staff_id}}</h1>
     <form action="{{ url_for('staff_assign_to_plane', staff_id=staff_id) }}" method="POST">

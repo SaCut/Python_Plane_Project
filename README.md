@@ -14,17 +14,23 @@
 - Scrum framework
 
 ## Files and Functionality
+### [abstract_db_record.py](abstract_db_record.py)
+text here
+
 ### [db_wrapper.py](db_wrapper.py)
 Manages the connection between the SQL database and Python code. Saving and loading to and from the database is handled here.
 
 ### [flight_trip.py](flight_trip.py)
 An object. Each instance contains information about a flight, hence the name.
 
+### [login.py](login.py)
+text here
+
 ### [menus.py](menus.py)
 Holds all the code used for displaying and handling the menus used in `run.py`. Created solely to keep `run.py` neat.
 
 ### [run.py](run.py)
-This is the 'main' part of the programme from the user's perspective. This is where they interact with the UI (graphical or otherwise) to create or update passengers and flights.
+This is the 'main' part of the programme from the user's perspective. This is where they interact with the UI (graphical or otherwise) to create and manage passengers, flights, and aircrafts.
 
 ### [test_plane_project.py](test_plane_project.py)
 The unit tests are run from this file.

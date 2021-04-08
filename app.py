@@ -174,7 +174,8 @@ def staff():
 
 @app.route("/staff_info/<staff_id>")
 def staff_info(staff_id):
-    return render_template("staff_info.html", staff_id=int(staff_id), dict_staff=dict_staff)
+
+    return render_template("staff_info.html", staff_id=int(staff_id.split(" ")[0]), dict_staff=dict_staff)
 
 
 @app.route("/staff_new/", methods=["GET", "POST"])

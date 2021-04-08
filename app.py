@@ -156,7 +156,7 @@ def staff():
     return render_template("staff.html", len=len(dict_staff), dict_staff=dict_staff)
 
 
-@app.route("/staff_info/<staff_id>",)
+@app.route("/staff_info/<staff_id>")
 def staff_info(staff_id):
     return render_template("staff_info.html", staff_id=staff_id)
 
@@ -171,6 +171,20 @@ def staff_new():
         except:
             return redirect(url_for("staff_new"))
     return render_template("staff_new.html")
+
+
+@app.route("/staff_assign_to_plane/<staff_id>",  methods=["GET", "POST"])
+def staff_assign_to_plane(staff_id):
+    if request.method == "POST":
+        try:
+            staff_flight = dict_flights[int(request.form["flight"].split(" ")[0])]
+            staff_obj = dict_staff[int(staff_id.split(" ")[0])]
+            staff_obj.assign_flight(staff_flight, db_wrapper)
+            return redirect(url_for("staff"))
+        except:
+            return redirect(url_for("staff_new"))
+
+    return render_template("staff_assign_to_plane.html", staff_id=staff_id, dict_flights=dict_flights)
 
 
 if __name__ == '__main__':

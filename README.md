@@ -51,7 +51,7 @@ A child of `Aircraft`. It currently inherits all its properties.
 A child of `Aircraft`. It currently inherits all its properties and also extends them with the variable `plane_model`.
 
 ### [GUI](GUI)
-A folder for the GUI files
+A folder for the GUI files.
 
 [GUI.py](./GUI/GUI.py) -
 Where the graphical user interface is managed.
@@ -69,10 +69,10 @@ Holds the `Person` class. It's the parent for all people classes.
 A child of the `Person` class, specifically for staff members.
 
 ### [templates](templates)
-Holds the template html files for use with [!!put the use here!!].
+Holds the template html files.
 
 [base.html](./templates/base.html) -
-This works as the 'parent class' for the other html files.
+The template for desplaying the site navigation.
 
 [flight.html](./templates/flight.html) -
 The template for desplaying flights.

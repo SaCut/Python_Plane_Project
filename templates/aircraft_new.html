@@ -4,14 +4,16 @@
 
 {% block body %}
 <a href="/aircraft/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">back</a>
-<form>
+<form action="{{ url_for('aircraft_new')}}" method="POST">
   <div class="form-group">
-    <label for="FormControlInputAircraftType">Type of Aircraft</label>
-    <select type="text" class="form-control" id="FormControlInputAircraftType" placeholder="">
-        <option value="">Plane</option>
-        <option value="">Helicopter</option>
-    </select>
+    <label for="exampleFormControlInput1">Type</label>
+    <input type="text" class="form-control" name="type" id="Type" placeholder="heli or plane.">
   </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Capacity</label>
+    <input type="number" class="form-control"  name="capacity" id="Capacity" placeholder="eg. 200">
+  </div>
+  <input class="btn btn-default" type="submit" value="Confirm">
 </form>
-<a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">confirm</a>
+
 {% endblock %}

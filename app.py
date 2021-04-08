@@ -3,6 +3,9 @@ import login as lg
 from db_wrapper import DbWrapper
 from people.staff import Staff
 from people.passenger import Passenger
+from aircraft.aircraft import Aircraft
+from aircraft.plane import Plane
+from aircraft.helicopter import Helicopter
 app = Flask(__name__)
 
 log = lg.Login()
@@ -83,6 +86,22 @@ def passengers_new():
 @app.route("/aircraft/")
 def aircraft():
     return render_template("aircraft.html")
+
+
+@app.route("/aircraft_new/", methods=["GET", "POST"])
+def aircraft_new():
+    if request.method == "POST":
+        try:
+            if request.form["type"] == "plane":
+                a = Plane().make_manual(False, request.form["capacity"], request.form["type"], db_wrapper)
+            else:
+                a = Helicopter().make_manual(False, request.form["capacity"],  request.form["type"], db_wrapper)
+
+            dict_passengers[a.oid] = a
+            return redirect(url_for("aircraft"))
+        except:
+            return redirect(url_for("aircraft_new"))
+    return render_template("aircraft_new.html")
 
 
 @app.route("/staff/")

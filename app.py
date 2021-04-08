@@ -67,12 +67,14 @@ def flight_passengers(f_id):
 def flight_new():
     if request.method == "POST":
         try:
+            real_aircraft = dict_aircraft[int(request.form['aircraft'].split(" ")[0])]
             f = FlightTrip().make_manual(request.form["price"], None, request.form["destination"], request.form["duration"], request.form["origin"], db_wrapper)
+            f.assign_aircraft(real_aircraft, db_wrapper)
             dict_flights[f.oid] = f
             return redirect(url_for("flight"))
         except:
             return redirect(url_for("flight_new"))
-    return render_template("flight_new.html")
+    return render_template("flight_new.html", dict_aircraft=dict_aircraft)
 
 
 @app.route("/passengers/")
@@ -97,6 +99,32 @@ def passengers_new():
     return render_template("passengers_new.html")
 
 
+@app.route("/passenger_sell_ticket/<p_id>", methods=["GET", "POST"])
+def passenger_sell_ticket(p_id):
+    print(p_id)
+    if request.method == "POST":
+        flight = dict_flights[int(request.form["flight"].split(" ")[0])]
+
+        print(flight)
+
+        if flight.aircraft is not None:
+            # If the amount of passengers taking up seats is equal to or less than the capacity of the plane assigned
+            if flight.get_seated_passenger_count(db_wrapper) < dict_aircraft[flight.aircraft].flight_capacity:
+                db_wrapper.create_ticket_and_add(dict_passengers[int(p_id)], flight)
+            else:
+                return redirect(url_for("error"))
+
+        else:
+            return redirect(url_for("error"))
+
+
+    return render_template("passenger_sell_ticket.html", p_id=p_id, dict_flights=dict_flights)
+
+
+@app.route("/error/")
+def error():
+    return render_template("error.html")
+
 @app.route("/aircraft/")
 def aircraft():
     return render_template("aircraft.html", len=len(dict_aircraft), dict_aircraft=dict_aircraft)
@@ -105,7 +133,6 @@ def aircraft():
 @app.route("/aircraft_info/<a_id>")
 def aircraft_info(a_id):
     return render_template("aircraft_info.html", a_id=int(a_id), dict_aircraft=dict_aircraft)
-
 
 
 @app.route("/aircraft_new/", methods=["GET", "POST"])

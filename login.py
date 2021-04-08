@@ -116,13 +116,14 @@ class Login:
             return None
 
         # hashing the password
-        hash_pswd = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), get_salt.encode("utf-8"), 1000)
-        hash_pswd = self.bin_to_str(hash_pswd)
+        m = hashlib.sha256((self.bin_to_str(get_salt) + password).encode("UTF-8")).digest()
+        m = self.bin_to_str(m)
+
 
         print("hash_password(): hash_password")
-        print(hash_pswd + "\n")
+        print(m, "\n")
 
-        return hash_pswd
+        return m
 
     def right_password(self, username, password):
 
@@ -134,9 +135,9 @@ class Login:
         check_pswd = self.hash_password(username, password)
 
         print("right_password(): check_pswd")
-        print(check_pswd + "\n")
+        print(check_pswd, "\n")
         print("right_password(): get_pswd")
-        print(get_pswd + "\n")
+        print(get_pswd, "\n")
 
 
         if check_pswd == get_pswd:
@@ -147,5 +148,8 @@ class Login:
 
 
 if __name__=='__main__':
-    log_object = Login()
-    log_object.new_account()
+    # log_object = Login()
+    # log_object.new_account()
+    object = Login()
+    print(object.right_password("admin", object.hash_password("admin", "admin")))
+

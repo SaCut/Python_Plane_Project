@@ -75,8 +75,41 @@ class FlightTrip (AbstractDbObject):
         self.aircraft = aircraft
 
     def get_seated_passenger_count(self, db_wrapper):
+        return self.get_adult_passengers(db_wrapper) + self.get_child_passengers(db_wrapper)
+
+    def get_adult_passengers(self, db_wrapper):
         db_wrapper.cursor.execute(f"SELECT COUNT(*) FROM flight_order "
-                                  f"WHERE ticket_type in ('adult', 'child') "
+                                  f"WHERE ticket_type in ('adult') "
                                   f"AND flight_trip_id = {self.oid}")
         return db_wrapper.cursor.fetchone()[0]
 
+    def get_child_passengers(self, db_wrapper):
+        db_wrapper.cursor.execute(f"SELECT COUNT(*) FROM flight_order "
+                                  f"WHERE ticket_type in ('child') "
+                                  f"AND flight_trip_id = {self.oid}")
+        return db_wrapper.cursor.fetchone()[0]
+
+    def get_infant_passengers(self, db_wrapper):
+        db_wrapper.cursor.execute(f"SELECT COUNT(*) FROM flight_order "
+                                  f"WHERE ticket_type in ('infant') "
+                                  f"AND flight_trip_id = {self.oid}")
+        return db_wrapper.cursor.fetchone()[0]
+
+    def get_staff_assigned(self, db_wrapper):
+        db_wrapper.cursor.execute(f"SELECT COUNT(*) FROM staff WHERE flight_trip_id = {self.oid}")
+        return db_wrapper.cursor.fetchone()[0]
+
+    def breakdown_flight_info(self, db_wrapper):
+        adult = self.get_adult_passengers(db_wrapper)
+        child = self.get_child_passengers(db_wrapper)
+        infant = self.get_infant_passengers(db_wrapper)
+        total = adult + child + infant
+        print(f"total passengers: {total}\n"
+              f"adults: {adult}\n"
+              f"children: {child}\n"
+              f"infant: {infant}\n")
+
+        staff = self.get_staff_assigned(db_wrapper)
+        print(f"\nStaff assigned: {staff}\n")
+
+        print(f"aircraft: {self.aircraft}")

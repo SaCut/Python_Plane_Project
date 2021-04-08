@@ -69,10 +69,10 @@ Holds the template html files.
 The template for desplaying the site navigation.
 
 [flight.html](./templates/flight.html) -
-The template for desplaying flights.
+Desplays flight information.
 
 [login.html](./templates/login.html) -
-The template login form.  
+Displays the login form.  
 
 [passengers.html](./templates/passengers.html) -
-text here
+Where the user can create and manage passengers.

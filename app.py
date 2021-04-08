@@ -76,7 +76,7 @@ def passengers():
 
 @app.route("/passenger_info/<p_id>")
 def passenger_info(p_id):
-    return render_template("staff_info.html", p_id=int(p_id), dict_passengers=dict_passengers, list_len=len(dict_passengers[int(p_id)].tickets))
+    return render_template("passenger_info.html", p_id=int(p_id), dict_passengers=dict_passengers, list_len=len(dict_passengers[int(p_id)].tickets))
 
 
 @app.route("/passengers_new/", methods=["GET", "POST"])
@@ -124,7 +124,7 @@ def staff():
 
 @app.route("/staff_info/<staff_id>",)
 def staff_info(staff_id):
-    return render_template("staff_info.html", staff_id=staff_id)
+    return render_template("staff_info.html", staff_id=int(staff_id), dict_staff=dict_staff)
 
 
 @app.route("/staff_new/", methods=["GET", "POST"])

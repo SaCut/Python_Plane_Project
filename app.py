@@ -102,16 +102,20 @@ def passengers_new():
 
 @app.route("/passenger_sell_ticket/<p_id>", methods=["GET", "POST"])
 def passenger_sell_ticket(p_id):
-    print(p_id)
+
     if request.method == "POST":
         flight = dict_flights[int(request.form["flight"].split(" ")[0])]
 
         print(flight.aircraft)
+        a_id = flight.aircraft
+
+        if type(a_id) == Plane or type(a_id) == Helicopter:
+            a_id = a_id.oid
 
         if flight.aircraft is not None:
 
             # If the amount of passengers taking up seats is equal to or less than the capacity of the plane assigned
-            if flight.get_seated_passenger_count(db_wrapper) < dict_aircraft[flight.aircraft].flight_capacity:
+            if flight.get_seated_passenger_count(db_wrapper) < dict_aircraft[a_id].flight_capacity:
                 db_wrapper.create_ticket_and_add(dict_passengers[int(p_id)], flight)
                 return redirect(url_for("passengers"))
             else:

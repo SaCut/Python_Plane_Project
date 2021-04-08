@@ -62,15 +62,16 @@ def flight_passengers(f_id):
     print(passenger_list)
     return render_template("flight_passengers.html", len=len(passenger_list), passenger_list=passenger_list)
 
-
 @app.route("/flight_new/", methods=["GET", "POST"])
 def flight_new():
     if request.method == "POST":
+        if len(dict_aircraft) == 0:
+            return redirect(url_for("aircraft"))
         try:
             real_aircraft = dict_aircraft[int(request.form['aircraft'].split(" ")[0])]
             f = FlightTrip().make_manual(request.form["price"], None, request.form["destination"], request.form["duration"], request.form["origin"], db_wrapper)
             f.assign_aircraft(real_aircraft, db_wrapper)
-            dict_flights[f.oid] = f
+            dict_flights[int(f.oid)] = f
             return redirect(url_for("flight"))
         except:
             return redirect(url_for("flight_new"))
@@ -105,15 +106,16 @@ def passenger_sell_ticket(p_id):
     if request.method == "POST":
         flight = dict_flights[int(request.form["flight"].split(" ")[0])]
 
-        print(flight)
+        print(flight.aircraft)
 
         if flight.aircraft is not None:
+
             # If the amount of passengers taking up seats is equal to or less than the capacity of the plane assigned
             if flight.get_seated_passenger_count(db_wrapper) < dict_aircraft[flight.aircraft].flight_capacity:
                 db_wrapper.create_ticket_and_add(dict_passengers[int(p_id)], flight)
+                return redirect(url_for("passengers"))
             else:
                 return redirect(url_for("error"))
-
         else:
             return redirect(url_for("error"))
 
@@ -144,7 +146,7 @@ def aircraft_new():
             else:
                 a = Helicopter().make_manual(False, request.form["capacity"],  request.form["type"], db_wrapper)
 
-            dict_passengers[a.oid] = a
+            dict_aircraft[a.oid] = a
             return redirect(url_for("aircraft"))
         except:
             return redirect(url_for("aircraft_new"))

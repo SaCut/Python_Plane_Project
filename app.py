@@ -16,11 +16,12 @@ global dict_flights
 global dict_aircraft
 global dict_staff
 
+
 @app.route("/", methods=["GET", "POST"])
 def login():
     error = None
     if request.method == "POST":
-        if not log.is_username(request.form["username"]): #check if username is NOT in database
+        if not log.is_username(request.form["username"]):  # check if username is NOT in database
             print("1")
             error = "Invalid username.Please try again"
         
@@ -53,6 +54,7 @@ def flight():
 @app.route("/flight_info/<f_id>")
 def flight_info(f_id):
     return render_template("flight_info.html", f_id= f_id, dict_flights=dict_flights)
+
 
 
 @app.route("/flight_new/", methods=["GET", "POST"])
@@ -91,7 +93,12 @@ def passengers_new():
 
 @app.route("/aircraft/")
 def aircraft():
-    return render_template("aircraft.html")
+    return render_template("aircraft.html", len=len(dict_aircraft), dict_aircraft=dict_aircraft)
+
+
+@app.route("/aircraft_info/<a_id>")
+def aircraft_info(a_id):
+    return render_template("aircraft_info.html", a_id=a_id, dict_aircraft=dict_aircraft)
 
 
 @app.route("/aircraft_new/", methods=["GET", "POST"])

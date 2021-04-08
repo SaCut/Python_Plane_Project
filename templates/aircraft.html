@@ -5,9 +5,13 @@
 {% block body %}
 <a href="/aircraft_new/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">New aircraft</a>
 
-<ol>
+<ul>
     {%for i in range(1, len + 1)%}
-    <a href="{{ url_for('flight_info', f_id= dict_flights[i].oid) }}"><li>{{dict_flights[i]}}</li></a>
+    <a href="{{ url_for('dict_aircraft', a_id= dict_aircraft[i].oid) }}">
+        <div class="alert alert-dark" role="alert">
+        <li>{{dict_aircraft[i]}}</li>
+        </div>
+    </a>
     {%endfor%}
-</ol>
+</ul>
 {% endblock %}

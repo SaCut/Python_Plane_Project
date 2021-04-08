@@ -1,1 +1,20 @@
 {% extends "base.html" %}
+
+{% block title %}Terminal{% endblock %}
+
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+<a href="/staff_new/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">New Staff Member</a>
+
+<ol>
+    {%for i in range(1, len + 1)%}
+    <a href="{{ url_for('staff_info', staff_id= dict_staff[i]) }}"><li>{{dict_staff[i]}}</li></a>
+    {%endfor%}
+</ol>
+{% endblock %}

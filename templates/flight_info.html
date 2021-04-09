@@ -25,8 +25,7 @@
     <div class="alert alert-dark" role="alert">
        <li>Filled seats: {{dict_flights[f_id].get_seated_passenger_count(db_wrapper)}}</li>
     </div>
-    <form action="{{ url_for('flight_passengers', f_id=f_id) }}" method="POST">
-        <input class="btn btn-default" type="submit" value="See Passenger List">
-    </form>
 </ol>
+
+<a href="{{ url_for('flight_passengers', f_id=f_id) }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">See Passenger List</a>
 {% endblock %}

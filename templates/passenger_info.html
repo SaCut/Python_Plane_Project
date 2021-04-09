@@ -24,10 +24,10 @@
         <li>Passport number: {{dict_passengers[p_id].passport_number}}</li>
     </div>
 
-    <div class="alert alert-dark" role="alert">Booked flights:
+    <div class="alert alert-dark" role="alert"><li>Booked flights:</li>
         {%for i in range(0, list_len)%}
         <div class="alert alert-dark" role="alert">
-            <li>Ticket No: {{dict_passengers[p_id].tickets[i][0]}}</li>
+            <a>Ticket Id: {{dict_passengers[p_id].tickets[i][0]}}</a>
         </div>
         {%endfor%}
     </div>

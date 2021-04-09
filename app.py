@@ -22,7 +22,7 @@ def login():
     error = None
     if request.method == "POST":
         if not log.is_username(request.form["username"]):  # check if username is NOT in database
-            print("1")
+            # print("1")
             error = "Invalid username.Please try again"
         
         else: # when username is in database
@@ -31,11 +31,11 @@ def login():
             psswd = log.hash_password(request.form["username"], request.form["password"])
 
             if not log.right_password(request.form["username"], request.form["password"]):
-                print("2")
+                # print("2")
                 # print((type(request.form["username"]), request.form["password"]))
                 error = "Invalid Password. Please try again."
             else:
-                print("3")
+                # print("3")
                 return redirect(url_for("home"))
 
     return render_template("login.html", error=error)
@@ -59,7 +59,7 @@ def flight_info(f_id):
 @app.route("/flight_passengers/<f_id>", methods=["GET", "POST"])
 def flight_passengers(f_id):
     passenger_list = dict_flights[int(f_id)].passenger_list
-    print(passenger_list)
+    # print(passenger_list)
     return render_template("flight_passengers.html", len=len(passenger_list), passenger_list=passenger_list, f_id=f_id)
 
 @app.route("/flight_new/", methods=["GET", "POST"])
@@ -102,16 +102,19 @@ def passengers_new():
 
 @app.route("/passenger_sell_ticket/<p_id>", methods=["GET", "POST"])
 def passenger_sell_ticket(p_id):
-    print(p_id)
+
     if request.method == "POST":
         flight = dict_flights[int(request.form["flight"].split(" ")[0])]
 
-        print(flight.aircraft)
+        a_id = flight.aircraft
+
+        if type(a_id) == Plane or type(a_id) == Helicopter:
+            a_id = a_id.oid
 
         if flight.aircraft is not None:
 
             # If the amount of passengers taking up seats is equal to or less than the capacity of the plane assigned
-            if flight.get_seated_passenger_count(db_wrapper) < dict_aircraft[flight.aircraft].flight_capacity:
+            if flight.get_seated_passenger_count(db_wrapper) < dict_aircraft[a_id].flight_capacity:
                 db_wrapper.create_ticket_and_add(dict_passengers[int(p_id)], flight)
                 return redirect(url_for("passengers"))
             else:

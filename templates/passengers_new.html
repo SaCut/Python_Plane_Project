@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-<a href="/passengers/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Back to Passengers</a>
+<a href="/passengers/" class="btn btn-primary" style="margin-bottom: 10px" tabindex="-1" role="button" aria-disabled="true">Back to Passengers</a>
 <form action="{{ url_for('passengers_new') }}" method="POST">
   <div class="form-group">
     <label for="exampleFormControlInput1">First Name</label>

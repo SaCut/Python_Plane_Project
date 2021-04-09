@@ -4,10 +4,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
-<div class="wrapper fadeInDown">
+<div class="wrapper fadeInDown" style="margin: 30px">
   <div id="formContent">
     <!-- Tabs Titles -->
-      <h1>Please Login:</h1>
+      <h1>User Login:</h1>
     <!-- Login Form -->
     <form action="{{ url_for('login')}}" method="POST" class="login100-form validate-form" id="form1">
         <input type="text" placeholder="Username" name="username" value="{{request.form.username}}">
